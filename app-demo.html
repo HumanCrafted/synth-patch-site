@@ -686,15 +686,27 @@
       g.setAttribute('class', 'toggle-control');
       g.setAttribute('data-id', id);
       
-      // Toggle graphic - starts in middle position
+      // Set initial positions: toggle1 up, toggle2 down
+      let initialPosition = 'middle';
+      let initialState = 1; // 0=up, 1=middle, 2=down
+      
+      if (id === 'toggle1') {
+        initialPosition = 'up';
+        initialState = 0;
+      } else if (id === 'toggle2') {
+        initialPosition = 'down';
+        initialState = 2;
+      }
+      
+      // Toggle graphic
       const image = document.createElementNS('http://www.w3.org/2000/svg', 'image');
-      image.setAttribute('href', 'modern-sounds-pluto/pluto-toggle-middle.svg');
+      image.setAttribute('href', `modern-sounds-pluto/pluto-toggle-${initialPosition}.svg`);
       image.setAttribute('x', '-38'); // half of 76
       image.setAttribute('y', '-38');
       image.setAttribute('width', '76');
       image.setAttribute('height', '76');
       
-      state.toggles[id] = 1; // 0=up, 1=middle, 2=down
+      state.toggles[id] = initialState;
       
       g.appendChild(image);
       container.appendChild(g);
