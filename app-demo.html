@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Synth Patch App Demo</title>
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #FAFAF8;
+      color: #000;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+    
+    .browser-frame {
+      background: white;
+      border: 1px solid #e5e5e3;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      width: 100%;
+      height: 100vh;
+    }
+    
+    .browser-header {
+      background: #f8f8f7;
+      padding: 12px 16px;
+      border-bottom: 1px solid #e5e5e3;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .browser-dots {
+      display: flex;
+      gap: 6px;
+    }
+    
+    .browser-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+    
+    .browser-dot.red { background: #ff5f57; }
+    .browser-dot.yellow { background: #ffbd2e; }
+    .browser-dot.green { background: #28ca42; }
+    
+    .browser-url {
+      flex: 1;
+      margin-left: 12px;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 6px 12px;
+      font-size: 13px;
+      color: #666;
+    }
+    
+    .app-nav {
+      background: white;
+      padding: 16px 24px;
+      border-bottom: 1px solid #e5e5e3;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .app-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .user-section {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .breadcrumb {
+      padding: 16px 24px;
+      background: white;
+      border-bottom: 1px solid #e5e5e3;
+      font-size: 14px;
+      color: #666;
+    }
+    
+    .breadcrumb a {
+      color: #666;
+      text-decoration: none;
+    }
+    
+    .breadcrumb a:hover {
+      color: #000;
+    }
+    
+    .patch-header {
+      padding: 24px;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .patch-title {
+      font-size: 20px;
+      font-weight: 600;
+    }
+    
+    .patch-actions {
+      display: flex;
+      gap: 12px;
+    }
+    
+    .btn {
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .btn-primary {
+      background: #000;
+      color: white;
+    }
+    
+    .btn-secondary {
+      background: white;
+      color: #000;
+      border: 1px solid #e5e5e3;
+    }
+    
+    .synth-container {
+      flex: 1;
+      padding: 8px;
+      background: white;
+      overflow: hidden;
+      min-height: 0;
+    }
+    
+    /* Synth demo styles - integrated from pluto-demo.html */
+    .synth-wrapper {
+      background: transparent;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+    }
+    
+    .synth-interface {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    
+    .synth-interface svg {
+      width: 100%;
+      height: auto;
+      display: block;
+      max-width: 100%;
+    }
+    
+    /* Component interaction styles */
+    .knob-control {
+      cursor: pointer;
+      touch-action: none;
+      user-select: none;
+    }
+    
+    .jack-control {
+      cursor: pointer;
+    }
+    
+    .jack-control.selected .jack-indicator {
+      opacity: 1;
+    }
+    
+    .jack-indicator {
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    
+    .led-control {
+      cursor: pointer;
+      transition: opacity 0.3s;
+    }
+    
+    .touchpad-control {
+      cursor: pointer;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+    
+    .touchpad-control.active {
+      opacity: 1;
+    }
+    
+    .toggle-control {
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    
+    .cable-path {
+      pointer-events: none;
+      stroke-linecap: round;
+      fill: none;
+    }
+    
+    /* Notes and Audio Upload Section Styles */
+    .notes-audio-section {
+      background: white;
+      padding: 24px;
+    }
+    
+    .notes-audio-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+      align-items: start;
+    }
+    
+    .notes-section {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .notes-display {
+      width: 100%;
+      height: 120px;
+      padding: 12px;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      background: white;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 14px;
+      color: #9ca3af;
+      line-height: 1.5;
+      display: flex;
+      align-items: flex-start;
+      pointer-events: none;
+    }
+    
+    .audio-section {
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      overflow: hidden;
+      background: white;
+    }
+    
+    .audio-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 16px;
+      background: white;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: #374151;
+    }
+    
+    .audio-upload {
+      padding: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 96px;
+      background: white;
+      pointer-events: none;
+    }
+    
+    .upload-content {
+      border: 2px dashed #d1d5db;
+      border-radius: 6px;
+      padding: 24px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      background: transparent;
+    }
+    
+    .upload-icon {
+      color: #9ca3af;
+      margin-bottom: 12px;
+    }
+    
+    .upload-text {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+    
+    .upload-main {
+      font-size: 14px;
+      font-weight: 500;
+      color: #374151;
+      margin-bottom: 4px;
+    }
+    
+    .upload-sub {
+      font-size: 12px;
+      color: #6b7280;
+      line-height: 1.4;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="browser-frame" style="display: flex; flex-direction: column;">
+    <!-- Browser Header -->
+    <div class="browser-header">
+      <div class="browser-dots">
+        <div class="browser-dot red"></div>
+        <div class="browser-dot yellow"></div>
+        <div class="browser-dot green"></div>
+      </div>
+      <div class="browser-url">app.synthpatch.io</div>
+    </div>
+    
+    <!-- App Navigation -->
+    <div class="app-nav">
+      <div class="app-logo">
+        <svg width="24" height="32" viewBox="0 0 102 142" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path 
+            d="M9.7251 132.074C22.5037 128.436 38.8648 123.22 38.8648 111.485C38.8648 93.7523 9.72552 99.8561 9.72534 80.4442C9.7251 54.2307 91.8187 54.9047 91.8187 27.2561C91.8187 4.06187 58.9147 3.34823 58.9147 27.2561C58.9147 46.3824 58.9147 72.4749 58.9147 80.4442" 
+            stroke="currentColor" 
+            stroke-width="16" 
+            stroke-linecap="round"
+          />
+        </svg>
+      </div>
+      
+      <div class="user-section">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+      </div>
+    </div>
+    
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a href="#">Home</a> > <a href="#">Synths</a> > Modern Sounds Pluto
+    </div>
+    
+    <!-- Patch Header -->
+    <div class="patch-header">
+      <div class="patch-title">Modern Sounds Pluto</div>
+      <div class="patch-actions">
+        <button class="btn btn-primary">Save Patch</button>
+        <button class="btn btn-secondary">Share</button>
+      </div>
+    </div>
+    
+    <!-- Synth Container - Direct integration -->
+    <div class="synth-container">
+      <div class="synth-wrapper">
+        <div class="synth-interface">
+          <svg viewBox="0 0 1938 897" xmlns="http://www.w3.org/2000/svg">
+            <!-- Pluto Frame Background -->
+            <image 
+              href="modern-sounds-pluto/pluto-frame.svg"
+              x="0" y="0" 
+              width="1938" height="897"
+              style="pointer-events: none;"
+            />
+            
+            <!-- Components Layer -->
+            <g id="components">
+              <!-- Components will be dynamically created here -->
+            </g>
+            
+            <!-- Cables Layer (rendered on top) -->
+            <g id="cables">
+              <!-- Patch cables will be drawn here -->
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notes and Audio Upload Section -->
+    <div class="notes-audio-section">
+      <div class="notes-audio-grid">
+        <!-- Notes Section -->
+        <div class="notes-section">
+          <div class="notes-display">Add notes about this patch...</div>
+        </div>
+
+        <!-- Audio Upload Section -->
+        <div class="audio-section">
+          <div class="audio-header">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 18V5l12-2v13"/>
+              <circle cx="6" cy="18" r="3"/>
+              <circle cx="18" cy="16" r="3"/>
+            </svg>
+            Audio File
+          </div>
+          <div class="audio-upload">
+            <div class="upload-content">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="upload-icon">
+                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+                <polyline points="7,10 12,15 17,10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              <div class="upload-text">
+                <div class="upload-main">Upload Audio File</div>
+                <div class="upload-sub">Drag and drop • MP3 only</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Complete Pluto configuration
+    const PLUTO_CONFIG = {
+      knobs: {
+        clock: { x: 138, y: 137, name: 'CLOCK' },
+        spread: { x: 346, y: 137, name: 'SPREAD' },
+        width: { x: 1802, y: 137, name: 'WIDTH' },
+        intensity: { x: 1802, y: 345, name: 'INTENSITY' },
+        seq1: { x: 138, y: 553, name: 'SEQUENCE 1' },
+        seq2: { x: 346, y: 553, name: 'SEQUENCE 2' },
+        seq3: { x: 554, y: 553, name: 'SEQUENCE 3' },
+        seq4: { x: 762, y: 553, name: 'SEQUENCE 4' },
+        voice1: { x: 1178, y: 553, name: 'VOICE 1' },
+        voice2: { x: 1386, y: 553, name: 'VOICE 2' },
+        time: { x: 1802, y: 553, name: 'TIME' },
+        step: { x: 970, y: 761, name: 'STEP' },
+        direction: { x: 1178, y: 761, name: 'DIRECTION' },
+        level: { x: 1386, y: 761, name: 'LEVEL' },
+        final: { x: 1594, y: 761, name: 'FINAL' },
+        master: { x: 1802, y: 761, name: 'MASTER' }
+      },
+      inputJacks: {
+        shuffle: { x: 554, y: 137, name: 'SHUFFLE' },
+        stepInvert: { x: 138, y: 345, name: 'STEP INVERT' },
+        threshold: { x: 970, y: 345, name: 'THRESHOLD' },
+        touch: { x: 1178, y: 345, name: 'TOUCH' },
+        levelIn: { x: 1386, y: 345, name: 'LEVEL' },
+        stepIn: { x: 1594, y: 345, name: 'STEP' },
+        scaleIn: { x: 1594, y: 553, name: 'SCALE IN' },
+        voiceIn: { x: 970, y: 553, name: 'VOICE IN' }
+      },
+      outputJacks: {
+        charon: { x: 762, y: 137, name: 'CHARON' },
+        nix: { x: 970, y: 137, name: 'NIX' },
+        kerberos: { x: 1178, y: 137, name: 'KERBEROS' },
+        hydra: { x: 1386, y: 137, name: 'HYDRA' },
+        pluto: { x: 1594, y: 137, name: 'PLUTO' },
+        stepOut: { x: 346, y: 345, name: 'STEP OUT' },
+        stepInvertOut: { x: 554, y: 345, name: 'STEP INVERT OUT' },
+        thresholdOut: { x: 762, y: 345, name: 'THRESHOLD OUT' }
+      },
+      leds: {
+        led1: { x: 684, y: 213, name: 'LED 1' },
+        led2: { x: 60, y: 629, name: 'LED 2' },
+        led3: { x: 892, y: 213, name: 'LED 3' },
+        led4: { x: 268, y: 629, name: 'LED 4' },
+        led5: { x: 1100, y: 213, name: 'LED 5' },
+        led6: { x: 476, y: 629, name: 'LED 6' },
+        led7: { x: 1308, y: 213, name: 'LED 7' },
+        led8: { x: 684, y: 629, name: 'LED 8' },
+        led9: { x: 1308, y: 629, name: 'LED 9' },
+        led10: { x: 1308, y: 680, name: 'LED 10' },
+        led11: { x: 1724, y: 680, name: 'LED 11' },
+        led12: { x: 1724, y: 472, name: 'LED 12' },
+        led13: { x: 1724, y: 732, name: 'LED 13' },
+        led14: { x: 1724, y: 783, name: 'LED 14' },
+        led15: { x: 1260, y: 629, name: 'LED 15' },
+        led16: { x: 1260, y: 680, name: 'LED 16' },
+        led17: { x: 1516, y: 213, name: 'LED 17' }
+      },
+      touchPads: {
+        touchPad1: { x: 138, y: 761, name: 'TOUCH PAD 1' },
+        touchPad2: { x: 346, y: 761, name: 'TOUCH PAD 2' },
+        touchPad3: { x: 554, y: 761, name: 'TOUCH PAD 3' },
+        touchPad4: { x: 762, y: 761, name: 'TOUCH PAD 4' }
+      },
+      toggles: {
+        toggle1: { x: 868.175, y: 657, name: 'TOGGLE 1' },
+        toggle2: { x: 1492, y: 657, name: 'TOGGLE 2' }
+      }
+    };
+
+    // Component state
+    const state = {
+      knobs: {},
+      leds: {},
+      touchpads: {},
+      toggles: {},
+      selectedJack: null,
+      cables: []
+    };
+
+    // Create knob component
+    function createKnob(container, id, config) {
+      const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      g.setAttribute('transform', `translate(${config.x}, ${config.y})`);
+      g.setAttribute('class', 'knob-control');
+      g.setAttribute('data-id', id);
+      
+      // Knob graphic with rotation
+      const image = document.createElementNS('http://www.w3.org/2000/svg', 'image');
+      image.setAttribute('href', 'modern-sounds-pluto/pluto-knob-line.svg');
+      image.setAttribute('x', '-60'); // half of 120
+      image.setAttribute('y', '-60');
+      image.setAttribute('width', '120');
+      image.setAttribute('height', '120');
+      
+      // Random initial rotation
+      const rotation = Math.random() * 270 - 135;
+      state.knobs[id] = rotation;
+      image.setAttribute('transform', `rotate(${rotation})`);
+      
+      // Invisible hit area
+      const hitArea = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      hitArea.setAttribute('cx', '0');
+      hitArea.setAttribute('cy', '0');
+      hitArea.setAttribute('r', '60');
+      hitArea.setAttribute('fill', 'transparent');
+      
+      g.appendChild(image);
+      g.appendChild(hitArea);
+      container.appendChild(g);
+      
+      // Mouse drag functionality
+      let isDragging = false;
+      let startY = 0;
+      let startRotation = rotation;
+      
+      function handlePointerDown(e) {
+        isDragging = true;
+        startY = e.clientY;
+        startRotation = state.knobs[id];
+        e.preventDefault();
+      }
+      
+      function handlePointerMove(e) {
+        if (!isDragging) return;
+        
+        const deltaY = startY - e.clientY;
+        const newRotation = Math.max(-135, Math.min(135, startRotation + deltaY * 0.5));
+        state.knobs[id] = newRotation;
+        image.setAttribute('transform', `rotate(${newRotation})`);
+      }
+      
+      function handlePointerUp() {
+        isDragging = false;
+      }
+      
+      g.addEventListener('pointerdown', handlePointerDown);
+      document.addEventListener('pointermove', handlePointerMove);
+      document.addEventListener('pointerup', handlePointerUp);
+    }
+
+    // Create jack component
+    function createJack(container, id, config, type) {
+      const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      g.setAttribute('transform', `translate(${config.x}, ${config.y})`);
+      g.setAttribute('class', 'jack-control');
+      g.setAttribute('data-id', id);
+      g.setAttribute('data-type', type);
+      
+      // Jack graphic - using 120px size
+      const image = document.createElementNS('http://www.w3.org/2000/svg', 'image');
+      const graphic = type === 'input' ? 'pluto-jack-input.svg' : 'pluto-jack-output.svg';
+      image.setAttribute('href', `modern-sounds-pluto/${graphic}`);
+      image.setAttribute('x', '-60'); // half of 120
+      image.setAttribute('y', '-60');
+      image.setAttribute('width', '120');
+      image.setAttribute('height', '120');
+      
+      // Selection indicator
+      const indicator = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      indicator.setAttribute('cx', '0');
+      indicator.setAttribute('cy', '0');
+      indicator.setAttribute('r', '9');
+      indicator.setAttribute('fill', '#000');
+      indicator.setAttribute('class', 'jack-indicator');
+      
+      // Hit area
+      const hitArea = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      hitArea.setAttribute('cx', '0');
+      hitArea.setAttribute('cy', '0');
+      hitArea.setAttribute('r', '60');
+      hitArea.setAttribute('fill', 'transparent');
+      
+      g.appendChild(image);
+      g.appendChild(indicator);
+      g.appendChild(hitArea);
+      container.appendChild(g);
+      
+      // Click handler for cable connections
+      g.addEventListener('click', () => {
+        handleJackClick(id, config, g);
+      });
+    }
+
+    // Create LED component
+    function createLED(container, id, config) {
+      const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      g.setAttribute('transform', `translate(${config.x}, ${config.y})`);
+      g.setAttribute('class', 'led-control');
+      g.setAttribute('data-id', id);
+      
+      // LED graphic - starts as inactive
+      const image = document.createElementNS('http://www.w3.org/2000/svg', 'image');
+      image.setAttribute('x', '-15'); // half of 30
+      image.setAttribute('y', '-15');
+      image.setAttribute('width', '30');
+      image.setAttribute('height', '30');
+      
+      // Random initial state
+      state.leds[id] = Math.random() > 0.7;
+      
+      // Set initial image based on state
+      const ledGraphic = state.leds[id] ? 'pluto-led-active.svg' : 'pluto-led.svg';
+      image.setAttribute('href', `modern-sounds-pluto/${ledGraphic}`);
+      
+      g.appendChild(image);
+      container.appendChild(g);
+      
+      // Click handler - toggle between active and inactive SVGs
+      g.addEventListener('click', () => {
+        state.leds[id] = !state.leds[id];
+        const newGraphic = state.leds[id] ? 'pluto-led-active.svg' : 'pluto-led.svg';
+        image.setAttribute('href', `modern-sounds-pluto/${newGraphic}`);
+      });
+    }
+
+    // Create touch pad component
+    function createTouchPad(container, id, config) {
+      const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      g.setAttribute('transform', `translate(${config.x}, ${config.y})`);
+      g.setAttribute('class', 'touchpad-control');
+      g.setAttribute('data-id', id);
+      
+      // TouchPad graphic - starts as inactive
+      const image = document.createElementNS('http://www.w3.org/2000/svg', 'image');
+      image.setAttribute('x', '-59'); // half of 118
+      image.setAttribute('y', '-59');
+      image.setAttribute('width', '118');
+      image.setAttribute('height', '118');
+      
+      // Initial state (inactive)
+      state.touchpads[id] = false;
+      const touchpadGraphic = state.touchpads[id] ? 'pluto-touch-pad-active.svg' : 'pluto-touch-pad.svg';
+      image.setAttribute('href', `modern-sounds-pluto/${touchpadGraphic}`);
+      
+      g.appendChild(image);
+      container.appendChild(g);
+      
+      // Click handler - toggle between active and inactive SVGs
+      g.addEventListener('click', () => {
+        state.touchpads[id] = !state.touchpads[id];
+        const newGraphic = state.touchpads[id] ? 'pluto-touch-pad-active.svg' : 'pluto-touch-pad.svg';
+        image.setAttribute('href', `modern-sounds-pluto/${newGraphic}`);
+      });
+    }
+
+    // Create toggle component
+    function createToggle(container, id, config) {
+      const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      g.setAttribute('transform', `translate(${config.x}, ${config.y})`);
+      g.setAttribute('class', 'toggle-control');
+      g.setAttribute('data-id', id);
+      
+      // Toggle graphic - starts in middle position
+      const image = document.createElementNS('http://www.w3.org/2000/svg', 'image');
+      image.setAttribute('href', 'modern-sounds-pluto/pluto-toggle-middle.svg');
+      image.setAttribute('x', '-38'); // half of 76
+      image.setAttribute('y', '-38');
+      image.setAttribute('width', '76');
+      image.setAttribute('height', '76');
+      
+      state.toggles[id] = 1; // 0=up, 1=middle, 2=down
+      
+      g.appendChild(image);
+      container.appendChild(g);
+      
+      // Click handler - cycles through positions
+      g.addEventListener('click', () => {
+        state.toggles[id] = (state.toggles[id] + 1) % 3;
+        const positions = ['up', 'middle', 'down'];
+        const position = positions[state.toggles[id]];
+        image.setAttribute('href', `modern-sounds-pluto/pluto-toggle-${position}.svg`);
+      });
+    }
+
+    // Handle jack clicking for cable connections
+    function handleJackClick(jackId, jackConfig, jackElement) {
+      const allJacks = document.querySelectorAll('.jack-control');
+      
+      // Check if this jack already has a cable connected
+      const existingCableIndex = state.cables.findIndex(cable => 
+        (cable.from.x === jackConfig.x && cable.from.y === jackConfig.y) ||
+        (cable.to.x === jackConfig.x && cable.to.y === jackConfig.y)
+      );
+      
+      if (existingCableIndex !== -1) {
+        // Jack has a cable - remove it
+        const cableToRemove = state.cables[existingCableIndex];
+        cableToRemove.element.remove(); // Remove from DOM
+        state.cables.splice(existingCableIndex, 1); // Remove from state
+        
+        // Reset selection
+        allJacks.forEach(j => j.classList.remove('selected'));
+        state.selectedJack = null;
+        return;
+      }
+      
+      if (state.selectedJack === null) {
+        // First jack selection
+        state.selectedJack = { id: jackId, config: jackConfig };
+        jackElement.classList.add('selected');
+      } else if (state.selectedJack.id === jackId) {
+        // Clicking same jack - deselect
+        state.selectedJack = null;
+        jackElement.classList.remove('selected');
+      } else {
+        // Check if target jack already has a connection
+        const targetHasConnection = state.cables.some(cable => 
+          (cable.from.x === jackConfig.x && cable.from.y === jackConfig.y) ||
+          (cable.to.x === jackConfig.x && cable.to.y === jackConfig.y)
+        );
+        
+        if (!targetHasConnection) {
+          // Create cable between jacks
+          createCable(state.selectedJack.config, jackConfig);
+        }
+        
+        // Reset selection
+        allJacks.forEach(j => j.classList.remove('selected'));
+        state.selectedJack = null;
+      }
+    }
+
+    // Create cable between two jacks
+    function createCable(fromJack, toJack) {
+      const cablesContainer = document.getElementById('cables');
+      
+      // Create curved path
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      
+      const dx = toJack.x - fromJack.x;
+      const dy = toJack.y - fromJack.y;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+      
+      // Curve height based on distance
+      const curveHeight = Math.min(distance * 0.3, 180);
+      const midX = (fromJack.x + toJack.x) / 2;
+      const midY = (fromJack.y + toJack.y) / 2 - curveHeight;
+      
+      const d = `M ${fromJack.x} ${fromJack.y} Q ${midX} ${midY} ${toJack.x} ${toJack.y}`;
+      
+      path.setAttribute('d', d);
+      path.setAttribute('stroke', '#000');
+      path.setAttribute('stroke-width', '18');
+      path.setAttribute('class', 'cable-path');
+      
+      cablesContainer.appendChild(path);
+      state.cables.push({ from: fromJack, to: toJack, element: path });
+    }
+
+    // Initialize the interface
+    function initInterface() {
+      const container = document.getElementById('components');
+      
+      // Create all knobs
+      Object.entries(PLUTO_CONFIG.knobs).forEach(([id, config]) => {
+        createKnob(container, id, config);
+      });
+      
+      // Create all input jacks
+      Object.entries(PLUTO_CONFIG.inputJacks).forEach(([id, config]) => {
+        createJack(container, id, config, 'input');
+      });
+      
+      // Create all output jacks
+      Object.entries(PLUTO_CONFIG.outputJacks).forEach(([id, config]) => {
+        createJack(container, id, config, 'output');
+      });
+      
+      // Create all LEDs
+      Object.entries(PLUTO_CONFIG.leds).forEach(([id, config]) => {
+        createLED(container, id, config);
+      });
+      
+      // Create all touch pads
+      Object.entries(PLUTO_CONFIG.touchPads).forEach(([id, config]) => {
+        createTouchPad(container, id, config);
+      });
+      
+      // Create all toggles
+      Object.entries(PLUTO_CONFIG.toggles).forEach(([id, config]) => {
+        createToggle(container, id, config);
+      });
+    }
+
+    // Start when page loads
+    document.addEventListener('DOMContentLoaded', initInterface);
+  </script>
+</body>
+</html>
