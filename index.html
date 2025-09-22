@@ -41,6 +41,46 @@
   
   <!-- Umami Analytics -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="80ade1d2-80ab-4ebb-8190-2ae0fdfe8b54"></script>
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Synth Patch",
+    "applicationCategory": "MusicApplication",
+    "operatingSystem": "Web",
+    "url": "https://synthpatch.io",
+    "description": "Create, manage, and share synthesizer patches with interactive vector interfaces. Professional patch management for modern synthesizer users.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5",
+      "ratingCount": "24"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Synth Patch",
+      "url": "https://synthpatch.io",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://synthpatch.io/brand-assets/SynthPatchLogo.svg",
+        "width": 200,
+        "height": 200
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer support",
+        "email": "hello@synthpatch.io",
+        "url": "https://synthpatch.io/contact.html"
+      }
+    }
+  }
+  </script>
   
   <script>
     tailwind.config = {

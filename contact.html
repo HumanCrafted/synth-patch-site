@@ -35,6 +35,29 @@
   <!-- Umami Analytics -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="80ade1d2-80ab-4ebb-8190-2ae0fdfe8b54"></script>
 
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": "Contact Synth Patch",
+    "description": "Get in touch with the Synth Patch team. We'd love to hear from you.",
+    "url": "https://synthpatch.io/contact.html",
+    "mainEntity": {
+      "@type": "Organization",
+      "name": "Synth Patch",
+      "url": "https://synthpatch.io",
+      "email": "hello@synthpatch.io",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer support",
+        "email": "hello@synthpatch.io",
+        "url": "https://synthpatch.io/contact.html"
+      }
+    }
+  }
+  </script>
+
   <script>
     tailwind.config = {
       theme: {

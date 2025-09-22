@@ -1,0 +1,8 @@
+# Robots.txt for synthpatch.io
+# Allow all crawlers
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://synthpatch.io/sitemap.xml
