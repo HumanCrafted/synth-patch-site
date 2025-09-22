@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact - Synth Patch</title>
+  <meta name="description" content="Get in touch with the Synth Patch team. We'd love to hear from you.">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://synthpatch.io/contact">
+  <meta property="og:title" content="Contact - Synth Patch">
+  <meta property="og:description" content="Get in touch with the Synth Patch team. We'd love to hear from you.">
+  <meta property="og:image" content="https://synthpatch.io/brand-assets/og-default.png">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://synthpatch.io/contact">
+  <meta property="twitter:title" content="Contact - Synth Patch">
+  <meta property="twitter:description" content="Get in touch with the Synth Patch team. We'd love to hear from you.">
+  <meta property="twitter:image" content="https://synthpatch.io/brand-assets/og-default.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="16x16" href="brand-assets/Favicon/SynthPatch-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="brand-assets/Favicon/SynthPatch-32x32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="brand-assets/Favicon/SynthPatch-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="brand-assets/Favicon/SynthPatch-192x192.png">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Umami Analytics -->
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="80ade1d2-80ab-4ebb-8190-2ae0fdfe8b54"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            'sans': ['Space Grotesk', 'system-ui', 'sans-serif'],
+            'mono': ['IBM Plex Mono', 'monospace'],
+          },
+          colors: {
+            'signal-orange': '#FF6B35',
+            'control-blue': '#0055A4',
+            'patch-green': '#00A878',
+            'warning-yellow': '#FFB700',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --background: 0 0% 98%;
+      --foreground: 0 0% 0%;
+      --card: 0 0% 100%;
+      --card-foreground: 0 0% 0%;
+      --muted: 0 0% 90%;
+      --muted-foreground: 0 0% 48%;
+      --border: 0 0% 90%;
+      --signal-orange: #FF6B35;
+    }
+
+    .dark {
+      --background: 0 0% 4%;
+      --foreground: 0 0% 98%;
+      --card: 0 0% 8%;
+      --card-foreground: 0 0% 98%;
+      --muted: 0 0% 10%;
+      --muted-foreground: 0 0% 54%;
+      --border: 0 0% 10%;
+    }
+
+    body {
+      background: hsl(var(--background));
+      color: hsl(var(--foreground));
+    }
+
+    .card {
+      background: hsl(var(--card));
+      color: hsl(var(--card-foreground));
+    }
+
+    .text-muted-foreground {
+      color: hsl(var(--muted-foreground));
+    }
+
+    .border {
+      border-color: hsl(var(--border));
+    }
+
+    .bg-muted {
+      background: hsl(var(--muted));
+    }
+  </style>
+</head>
+
+<body class="font-sans min-h-full flex flex-col">
+  <!-- Header -->
+  <header class="border-b-2 border-gray-200">
+    <div class="max-w-7xl mx-auto px-6 py-4">
+      <div class="flex items-center justify-between">
+        <!-- Logo -->
+        <a href="/" class="flex items-center">
+          <svg
+            width="32"
+            height="44"
+            viewBox="0 0 102 142"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-8 w-auto"
+          >
+            <path
+              d="M9.7251 132.074C22.5037 128.436 38.8648 123.22 38.8648 111.485C38.8648 93.7523 9.72552 99.8561 9.72534 80.4442C9.7251 54.2307 91.8187 54.9047 91.8187 27.2561C91.8187 4.06187 58.9147 3.34823 58.9147 27.2561C58.9147 46.3824 58.9147 72.4749 58.9147 80.4442"
+              stroke="currentColor"
+              stroke-width="16"
+              stroke-linecap="round"
+              class="text-black"
+            />
+          </svg>
+        </a>
+
+        <!-- Navigation Links -->
+        <div class="flex items-center gap-6">
+          <a
+            href="/contact.html"
+            class="text-black font-medium"
+          >
+            Contact
+          </a>
+          <a
+            href="https://app.synthpatch.io"
+            class="text-gray-600 hover:text-black font-medium transition-colors"
+            data-umami-event="header-login"
+          >
+            Login
+          </a>
+          <!-- Join Waitlist CTA -->
+          <a
+            href="https://app.synthpatch.io/waitlist"
+            class="bg-black text-white hover:bg-gray-800 px-6 py-2 rounded-lg font-medium transition-colors"
+            data-umami-event="header-join-waitlist"
+          >
+            Join Waitlist
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-grow flex items-center justify-center py-20">
+    <div class="max-w-2xl w-full mx-auto px-6">
+      <div class="text-center mb-12">
+        <h1 class="text-4xl font-bold font-sans mb-4">Get in Touch</h1>
+        <p class="text-xl text-muted-foreground">
+          Have questions or feedback? We'd love to hear from you.
+        </p>
+      </div>
+
+      <form
+        action="https://formspree.io/f/mnngarbb"
+        method="POST"
+        class="card rounded-2xl p-8 shadow-sm"
+        data-umami-event="contact-form-submit"
+      >
+        <div class="space-y-6">
+          <!-- Name Field -->
+          <div>
+            <label for="name" class="block text-sm font-medium mb-2">
+              Name
+            </label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              required
+              class="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-black transition-colors"
+              placeholder="Your name"
+            >
+          </div>
+
+          <!-- Email Field -->
+          <div>
+            <label for="email" class="block text-sm font-medium mb-2">
+              Email
+            </label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              required
+              class="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-black transition-colors"
+              placeholder="your@email.com"
+            >
+          </div>
+
+          <!-- Message Field -->
+          <div>
+            <label for="message" class="block text-sm font-medium mb-2">
+              Message
+            </label>
+            <textarea
+              name="message"
+              id="message"
+              rows="6"
+              required
+              class="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-black transition-colors resize-none"
+              placeholder="Tell us what's on your mind..."
+            ></textarea>
+          </div>
+
+          <!-- Hidden field for form name (for tracking) -->
+          <input type="hidden" name="_subject" value="New contact form submission from synthpatch.io">
+
+          <!-- Submit Button -->
+          <button
+            type="submit"
+            class="w-full bg-black text-white hover:bg-gray-800 px-6 py-3 rounded-lg font-medium transition-colors"
+          >
+            Send Message
+          </button>
+        </div>
+      </form>
+
+      <p class="text-center text-sm text-muted-foreground mt-6">
+        We typically respond within 24-48 hours.
+      </p>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-black text-white py-8">
+    <div class="max-w-7xl mx-auto px-6 text-center text-sm text-gray-400">
+      <p>&copy; 2025 Synth Patch. Made with ❤️ by <a href="https://www.humancrafted.co" class="hover:text-white transition-colors">Human Crafted</a>.</p>
+    </div>
+  </footer>
+</body>
+</html>
