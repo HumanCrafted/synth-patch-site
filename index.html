@@ -144,36 +144,51 @@
     .bg-muted {
       background: hsl(var(--muted));
     }
+
+    /* Responsive iframe sizing for demo */
+    .demo-iframe {
+      /* Mobile: 600px total height for full synth visibility */
+      height: 600px;
+      max-width: 1200px;
+    }
+
+    @media (min-width: 640px) {
+      .demo-iframe {
+        /* Desktop: synth height + chrome */
+        height: calc(100vw / 2.16 + 517px);
+        max-height: 1072px;
+      }
+    }
   </style>
 </head>
 
 <body class="font-sans min-h-full">
   <!-- Header -->
   <header class="border-b-2 border-gray-200">
-    <div class="max-w-7xl mx-auto px-6 py-4">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 py-4">
       <div class="flex items-center justify-between">
         <!-- Logo -->
         <div class="flex items-center">
-          <svg 
-            width="32" 
-            height="44" 
-            viewBox="0 0 102 142" 
-            fill="none" 
+          <svg
+            width="32"
+            height="44"
+            viewBox="0 0 102 142"
+            fill="none"
             xmlns="http://www.w3.org/2000/svg"
             class="h-8 w-auto"
           >
-            <path 
-              d="M9.7251 132.074C22.5037 128.436 38.8648 123.22 38.8648 111.485C38.8648 93.7523 9.72552 99.8561 9.72534 80.4442C9.7251 54.2307 91.8187 54.9047 91.8187 27.2561C91.8187 4.06187 58.9147 3.34823 58.9147 27.2561C58.9147 46.3824 58.9147 72.4749 58.9147 80.4442" 
-              stroke="currentColor" 
-              stroke-width="16" 
+            <path
+              d="M9.7251 132.074C22.5037 128.436 38.8648 123.22 38.8648 111.485C38.8648 93.7523 9.72552 99.8561 9.72534 80.4442C9.7251 54.2307 91.8187 54.9047 91.8187 27.2561C91.8187 4.06187 58.9147 3.34823 58.9147 27.2561C58.9147 46.3824 58.9147 72.4749 58.9147 80.4442"
+              stroke="currentColor"
+              stroke-width="16"
               stroke-linecap="round"
               class="text-black"
             />
           </svg>
         </div>
-        
-        <!-- Navigation Links -->
-        <div class="flex items-center gap-6">
+
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden md:flex items-center gap-6">
           <a
             href="/contact.html"
             class="text-gray-600 hover:text-black font-medium transition-colors"
@@ -191,65 +206,104 @@
           <!-- Create Account CTA -->
           <a
             href="https://app.synthpatch.io/sign-up"
-            class="bg-black text-white hover:bg-gray-800 px-6 py-2 rounded-lg font-medium transition-colors"
+            class="bg-black text-white hover:bg-gray-800 px-4 md:px-6 py-2 rounded-lg font-medium transition-colors"
             data-umami-event="header-create-account"
           >
             Create an Account
           </a>
-        </div>
+        </nav>
+
+        <!-- Mobile Menu Button -->
+        <button
+          id="mobile-menu-button"
+          class="md:hidden p-2 text-gray-600 hover:text-black transition-colors"
+          aria-label="Toggle mobile menu"
+          aria-expanded="false"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            <path id="close-icon" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
       </div>
     </div>
+
+    <!-- Mobile Menu -->
+    <nav id="mobile-menu" class="hidden md:hidden border-t border-gray-200 bg-white">
+      <div class="max-w-7xl mx-auto px-4 py-4 space-y-3">
+        <a
+          href="/contact.html"
+          class="block text-gray-600 hover:text-black font-medium transition-colors py-2"
+          data-umami-event="mobile-header-contact"
+        >
+          Contact
+        </a>
+        <a
+          href="https://app.synthpatch.io"
+          class="block text-gray-600 hover:text-black font-medium transition-colors py-2"
+          data-umami-event="mobile-header-login"
+        >
+          Login
+        </a>
+        <a
+          href="https://app.synthpatch.io/sign-up"
+          class="block bg-black text-white hover:bg-gray-800 px-6 py-3 rounded-lg font-medium transition-colors text-center"
+          data-umami-event="mobile-header-create-account"
+        >
+          Create an Account
+        </a>
+      </div>
+    </nav>
   </header>
 
   <!-- Hero Section -->
-  <section class="py-20">
-    <div class="max-w-7xl mx-auto px-6 text-center">
+  <section class="py-12 md:py-20">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 text-center">
       <!-- Logo and Brand -->
-      <div class="text-center mb-8">
-        <div class="mb-6">
-          <img 
-            src="brand-assets/SynthPatchLogo.svg" 
-            alt="Synth Patch Logo" 
-            class="h-32 w-auto mx-auto"
+      <div class="text-center mb-6 md:mb-8">
+        <div class="mb-4 md:mb-6">
+          <img
+            src="brand-assets/SynthPatchLogo.svg"
+            alt="Synth Patch Logo"
+            class="h-20 md:h-32 w-auto mx-auto"
           />
         </div>
-        <h1 class="text-5xl font-bold font-sans">Synth Patch</h1>
+        <h1 class="text-3xl md:text-5xl font-bold font-sans">Synth Patch</h1>
       </div>
-      <p class="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed">
-        Create, manage, and share synthesizer patches using interactive vector representations of hardware synthesizers. 
+      <p class="text-base md:text-xl text-muted-foreground mb-6 md:mb-8 max-w-3xl mx-auto leading-relaxed">
+        Create, manage, and share synthesizer patches using interactive vector representations of hardware synthesizers.
         Connect virtual cables, adjust knobs, and save your perfect sound configurations.
       </p>
-      
-      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 md:mb-16">
         <a
           href="https://app.synthpatch.io/sign-up"
-          class="bg-black text-white hover:bg-gray-800 px-8 py-3 rounded-lg font-medium transition-colors text-lg"
+          class="w-full sm:w-auto bg-black text-white hover:bg-gray-800 px-8 py-3 rounded-lg font-medium transition-colors text-base md:text-lg"
           data-umami-event="hero-create-account"
         >
           Create an Account
         </a>
-        <a 
-          href="#features" 
-          class="text-muted-foreground hover:text-black border border-gray-300 hover:border-gray-400 px-8 py-3 rounded-lg font-medium transition-colors text-lg"
+        <a
+          href="#features"
+          class="w-full sm:w-auto text-muted-foreground hover:text-black border border-gray-300 hover:border-gray-400 px-8 py-3 rounded-lg font-medium transition-colors text-base md:text-lg"
           data-umami-event="hero-learn-more"
         >
           Learn More
         </a>
       </div>
-      
+
       <!-- Interaction Instructions -->
-      <div class="mb-6">
-        <p class="text-center text-signal-orange font-medium">
+      <div class="mb-4 md:mb-6">
+        <p class="text-center text-signal-orange font-medium text-sm md:text-base">
           ↓ Try it! Turn knobs, click LEDs, touch pads, and connect jacks ↓
         </p>
       </div>
       
       <!-- Interactive Demo -->
       <div class="max-w-6xl mx-auto">
-        <iframe 
-          src="app-demo.html" 
-          class="w-full border-0"
-          style="height: calc(100vw / 2.16 + 517px); max-width: 1200px; max-height: 1072px;"
+        <iframe
+          src="app-demo.html"
+          class="w-full border-0 demo-iframe"
           scrolling="no"
           title="Synth Patch App Demo"
         ></iframe>
@@ -258,44 +312,44 @@
   </section>
 
   <!-- Features Section -->
-  <section id="features" class="py-20 bg-muted">
-    <div class="max-w-7xl mx-auto px-6">
-      <div class="text-center mb-16">
-        <h2 class="text-4xl font-bold font-sans mb-4">Everything You Need</h2>
-        <p class="text-xl text-muted-foreground max-w-2xl mx-auto">
+  <section id="features" class="py-12 md:py-20 bg-muted">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      <div class="text-center mb-12 md:mb-16">
+        <h2 class="text-2xl md:text-4xl font-bold font-sans mb-3 md:mb-4">Everything You Need</h2>
+        <p class="text-base md:text-xl text-muted-foreground max-w-2xl mx-auto">
           Stop photographing or drawing your patches. Start capturing them for easy searching and browsing later.
         </p>
       </div>
-      
-      <div class="grid md:grid-cols-3 gap-8">
+
+      <div class="grid md:grid-cols-3 gap-6 md:gap-8">
         <!-- Interactive Interfaces -->
-        <div class="card rounded-2xl p-8 text-center">
-          <div class="w-12 h-12 bg-control-blue rounded-lg flex items-center justify-center mx-auto mb-4">
-            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="card rounded-2xl p-6 md:p-8 text-center">
+          <div class="w-10 h-10 md:w-12 md:h-12 bg-control-blue rounded-lg flex items-center justify-center mx-auto mb-3 md:mb-4">
+            <svg class="w-5 h-5 md:w-6 md:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4"></path>
             </svg>
           </div>
-          <h3 class="text-xl font-semibold mb-3">Interactive Hardware Interface</h3>
-          <p class="text-muted-foreground">
+          <h3 class="text-lg md:text-xl font-semibold mb-2 md:mb-3">Interactive Hardware Interface</h3>
+          <p class="text-sm md:text-base text-muted-foreground">
             Turn virtual knobs, connect patch cables, and adjust every control exactly like your physical synth. No more guessing.
           </p>
         </div>
 
         <!-- Patch Management -->
-        <div class="card rounded-2xl p-8 text-center">
-          <div class="w-12 h-12 bg-signal-orange rounded-lg flex items-center justify-center mx-auto mb-4">
-            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="card rounded-2xl p-6 md:p-8 text-center">
+          <div class="w-10 h-10 md:w-12 md:h-12 bg-signal-orange rounded-lg flex items-center justify-center mx-auto mb-3 md:mb-4">
+            <svg class="w-5 h-5 md:w-6 md:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
             </svg>
           </div>
-          <h3 class="text-xl font-semibold mb-3">Organize & Share</h3>
-          <p class="text-muted-foreground mb-4">
+          <h3 class="text-lg md:text-xl font-semibold mb-2 md:mb-3">Organize & Share</h3>
+          <p class="text-sm md:text-base text-muted-foreground mb-3 md:mb-4">
             Create collections, tag your sounds, and share patches with the community. Your perfect patches are never lost again.
           </p>
-          <a 
-            href="https://app.synthpatch.io/share/2cbb33ed-3e52-4b74-9be7-4c7817e26ff5" 
+          <a
+            href="https://app.synthpatch.io/share/2cbb33ed-3e52-4b74-9be7-4c7817e26ff5"
             target="_blank"
-            class="inline-block text-sm text-signal-orange hover:text-orange-700 font-medium transition-colors"
+            class="inline-block text-xs md:text-sm text-signal-orange hover:text-orange-700 font-medium transition-colors"
             data-umami-event="feature-view-shared-patch"
           >
             View Example Patch →
@@ -303,14 +357,14 @@
         </div>
 
         <!-- Audio Integration -->
-        <div class="card rounded-2xl p-8 text-center">
-          <div class="w-12 h-12 bg-patch-green rounded-lg flex items-center justify-center mx-auto mb-4">
-            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="card rounded-2xl p-6 md:p-8 text-center">
+          <div class="w-10 h-10 md:w-12 md:h-12 bg-patch-green rounded-lg flex items-center justify-center mx-auto mb-3 md:mb-4">
+            <svg class="w-5 h-5 md:w-6 md:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"></path>
             </svg>
           </div>
-          <h3 class="text-xl font-semibold mb-3">Audio Clips</h3>
-          <p class="text-muted-foreground">
+          <h3 class="text-lg md:text-xl font-semibold mb-2 md:mb-3">Audio Clips</h3>
+          <p class="text-sm md:text-base text-muted-foreground">
             Upload audio samples to hear exactly what each patch sounds like.  No paper patch note could ever do that.
           </p>
         </div>
@@ -319,60 +373,60 @@
   </section>
 
   <!-- Behind the Scenes -->
-  <section class="py-20">
-    <div class="max-w-7xl mx-auto px-6">
-      <div class="text-center mb-16">
-        <h2 class="text-4xl font-bold font-sans mb-4">Your Patches, Precisely Stored</h2>
-        <p class="text-xl text-muted-foreground max-w-3xl mx-auto">
+  <section class="py-12 md:py-20">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      <div class="text-center mb-12 md:mb-16">
+        <h2 class="text-2xl md:text-4xl font-bold font-sans mb-3 md:mb-4">Your Patches, Precisely Stored</h2>
+        <p class="text-base md:text-xl text-muted-foreground max-w-3xl mx-auto">
           Every knob turn, cable connection, and switch position is captured and stored. No detail is lost.
         </p>
       </div>
-      
-      <div class="grid lg:grid-cols-2 gap-12 items-center">
+
+      <div class="grid lg:grid-cols-2 gap-8 md:gap-12 items-center">
         <div>
-          <h3 class="text-2xl font-semibold mb-6">Perfect Recall</h3>
-          <div class="space-y-4">
+          <h3 class="text-xl md:text-2xl font-semibold mb-4 md:mb-6">Perfect Recall</h3>
+          <div class="space-y-3 md:space-y-4">
             <div class="flex items-start">
-              <div class="w-6 h-6 bg-patch-green rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+              <div class="w-5 h-5 md:w-6 md:h-6 bg-patch-green rounded-full flex items-center justify-center mr-3 md:mr-4 mt-1 flex-shrink-0">
+                <svg class="w-2.5 h-2.5 md:w-3 md:h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                 </svg>
               </div>
               <div>
-                <h4 class="font-semibold mb-1">Exact Control Values</h4>
-                <p class="text-muted-foreground text-sm">Every knob position stored as precise MIDI values (0-127)</p>
+                <h4 class="font-semibold mb-1 text-sm md:text-base">Exact Control Values</h4>
+                <p class="text-muted-foreground text-xs md:text-sm">Every knob position stored as precise MIDI values (0-127)</p>
               </div>
             </div>
-            
+
             <div class="flex items-start">
-              <div class="w-6 h-6 bg-control-blue rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+              <div class="w-5 h-5 md:w-6 md:h-6 bg-control-blue rounded-full flex items-center justify-center mr-3 md:mr-4 mt-1 flex-shrink-0">
+                <svg class="w-2.5 h-2.5 md:w-3 md:h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                 </svg>
               </div>
               <div>
-                <h4 class="font-semibold mb-1">Cable Connections</h4>
-                <p class="text-muted-foreground text-sm">Full patch routing with source and destination tracking</p>
+                <h4 class="font-semibold mb-1 text-sm md:text-base">Cable Connections</h4>
+                <p class="text-muted-foreground text-xs md:text-sm">Full patch routing with source and destination tracking</p>
               </div>
             </div>
-            
+
             <div class="flex items-start">
-              <div class="w-6 h-6 bg-signal-orange rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+              <div class="w-5 h-5 md:w-6 md:h-6 bg-signal-orange rounded-full flex items-center justify-center mr-3 md:mr-4 mt-1 flex-shrink-0">
+                <svg class="w-2.5 h-2.5 md:w-3 md:h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                 </svg>
               </div>
               <div>
-                <h4 class="font-semibold mb-1">Switch Positions</h4>
-                <p class="text-muted-foreground text-sm">Toggle states, button presses, and touchpad interactions</p>
+                <h4 class="font-semibold mb-1 text-sm md:text-base">Switch Positions</h4>
+                <p class="text-muted-foreground text-xs md:text-sm">Toggle states, button presses, and touchpad interactions</p>
               </div>
             </div>
           </div>
         </div>
         
-        <div class="card rounded-2xl p-6">
-          <h4 class="font-semibold mb-4 font-mono text-sm text-muted-foreground">Patch Data</h4>
-          <div class="bg-black rounded-lg p-4 font-mono text-xs text-green-400 overflow-hidden">
+        <div class="card rounded-2xl p-4 md:p-6">
+          <h4 class="font-semibold mb-3 md:mb-4 font-mono text-xs md:text-sm text-muted-foreground">Patch Data</h4>
+          <div class="bg-black rounded-lg p-3 md:p-4 font-mono text-[10px] md:text-xs text-green-400 overflow-x-auto">
             <div class="text-gray-500">// Modern Sounds Pluto - Patch 090425</div>
             <div class="text-blue-300">{</div>
             <div class="ml-2 text-yellow-300">"synthesizer"<span class="text-white">:</span> <span class="text-green-300">"modern-sounds-pluto-640902"</span>,</div>
@@ -402,29 +456,57 @@
   </section>
 
   <!-- Footer with CTA -->
-  <footer class="bg-black text-white py-20">
-    <div class="max-w-4xl mx-auto px-6 text-center">
-      <h2 class="text-4xl font-bold font-sans mb-6">Ready to Get Started?</h2>
-      <p class="text-xl text-gray-300 mb-8">
+  <footer class="bg-black text-white py-12 md:py-20">
+    <div class="max-w-4xl mx-auto px-4 md:px-6 text-center">
+      <h2 class="text-2xl md:text-4xl font-bold font-sans mb-4 md:mb-6">Ready to Get Started?</h2>
+      <p class="text-base md:text-xl text-gray-300 mb-6 md:mb-8">
         Create an account to start using Synth Patch.
       </p>
 
       <a
         href="https://app.synthpatch.io/sign-up"
-        class="inline-block bg-white text-black hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold text-lg transition-colors"
+        class="inline-block bg-white text-black hover:bg-gray-100 px-8 py-3 md:py-4 rounded-lg font-semibold text-base md:text-lg transition-colors"
         data-umami-event="footer-create-account"
       >
         Create an Account
       </a>
 
-      <p class="text-sm text-gray-400 mt-6">
+      <p class="text-xs md:text-sm text-gray-400 mt-4 md:mt-6">
         New synths are being added regularly. Join now!
       </p>
-      
-      <div class="pt-16 text-center text-sm text-gray-400 border-t border-gray-700 mt-16">
+
+      <div class="pt-12 md:pt-16 text-center text-xs md:text-sm text-gray-400 border-t border-gray-700 mt-12 md:mt-16">
         <p>&copy; 2025 Synth Patch. Made with ❤️ by <a href="https://www.humancrafted.co?utm_source=synthpatch" class="hover:text-white transition-colors" data-umami-event="footer-human-crafted">Human Crafted</a>.</p>
       </div>
     </div>
   </footer>
+
+  <!-- Mobile Menu Script -->
+  <script>
+    (function() {
+      const menuButton = document.getElementById('mobile-menu-button');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const menuIcon = document.getElementById('menu-icon');
+      const closeIcon = document.getElementById('close-icon');
+
+      if (menuButton && mobileMenu) {
+        menuButton.addEventListener('click', function() {
+          const isOpen = mobileMenu.classList.contains('hidden');
+
+          if (isOpen) {
+            mobileMenu.classList.remove('hidden');
+            menuIcon.classList.add('hidden');
+            closeIcon.classList.remove('hidden');
+            menuButton.setAttribute('aria-expanded', 'true');
+          } else {
+            mobileMenu.classList.add('hidden');
+            menuIcon.classList.remove('hidden');
+            closeIcon.classList.add('hidden');
+            menuButton.setAttribute('aria-expanded', 'false');
+          }
+        });
+      }
+    })();
+  </script>
 </body>
 </html>
