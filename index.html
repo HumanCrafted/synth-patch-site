@@ -163,6 +163,36 @@
 </head>
 
 <body class="font-sans min-h-full">
+  <!-- Cookie Consent Banner -->
+  <div id="cookie-banner" class="hidden fixed bottom-0 left-0 right-0 bg-black text-white py-4 md:py-6 z-50 border-t-2 border-gray-700">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="text-center md:text-left">
+          <p class="text-sm md:text-base text-gray-300">
+            We use privacy-focused analytics to improve your experience. No personal data is collected.
+            <a href="/privacy-policy.html" class="text-white underline hover:text-gray-300 transition-colors" data-umami-event="cookie-banner-privacy-link">Learn more</a>
+          </p>
+        </div>
+        <div class="flex gap-3 flex-shrink-0">
+          <button
+            id="cookie-accept"
+            class="bg-white text-black hover:bg-gray-100 px-6 py-2 rounded-lg font-semibold text-sm transition-colors whitespace-nowrap"
+            data-umami-event="cookie-banner-accept"
+          >
+            Accept
+          </button>
+          <button
+            id="cookie-decline"
+            class="bg-transparent text-white hover:text-gray-300 border-2 border-white hover:border-gray-300 px-6 py-2 rounded-lg font-semibold text-sm transition-colors whitespace-nowrap"
+            data-umami-event="cookie-banner-decline"
+          >
+            Decline
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Header -->
   <header class="border-b-2 border-gray-200">
     <div class="max-w-7xl mx-auto px-4 md:px-6 py-4">
@@ -475,6 +505,64 @@
         New synths are being added regularly. Join now!
       </p>
 
+      <!-- Newsletter Signup -->
+      <div class="mt-12 md:mt-16">
+        <p class="text-base md:text-xl text-gray-300 mb-6 md:mb-8">
+          Prefer to just stay in the loop?
+        </p>
+
+        <div class="newsletter-form-container max-w-md mx-auto">
+          <form
+            class="newsletter-form"
+            action="https://app.loops.so/api/newsletter-form/cmfh3sbz81y8d1d0iykyege24"
+            method="POST"
+            data-umami-event="newsletter-signup-submit"
+          >
+            <div class="flex flex-col sm:flex-row gap-3 justify-center items-center w-full">
+              <input
+                class="newsletter-form-input w-full sm:w-auto flex-1 max-w-xs px-4 py-3 rounded-lg bg-white text-black border-2 border-gray-300 focus:outline-none focus:border-white transition-colors font-sans text-sm md:text-base"
+                placeholder="you@example.com"
+                required
+                type="email"
+                name="newsletter-form-input"
+              >
+              <button
+                type="submit"
+                class="newsletter-form-button w-full sm:w-auto bg-white text-black hover:bg-gray-100 px-6 py-3 rounded-lg font-semibold text-sm md:text-base transition-colors font-sans whitespace-nowrap"
+              >
+                Join Mailing List
+              </button>
+              <button
+                type="button"
+                class="newsletter-loading-button hidden w-full sm:w-auto bg-gray-400 text-black px-6 py-3 rounded-lg font-semibold text-sm md:text-base font-sans whitespace-nowrap cursor-not-allowed"
+                disabled
+              >
+                Please wait...
+              </button>
+            </div>
+          </form>
+
+          <div class="newsletter-success hidden mt-4">
+            <p class="newsletter-success-message text-green-400 font-sans text-sm md:text-base">
+              Thanks! We'll be in touch!
+            </p>
+          </div>
+
+          <div class="newsletter-error hidden mt-4">
+            <p class="newsletter-error-message text-red-400 font-sans text-sm md:text-base">
+              Oops! Something went wrong, please try again
+            </p>
+          </div>
+
+          <button
+            class="newsletter-back-button hidden mt-4 text-gray-400 hover:text-white font-sans text-sm transition-colors bg-transparent border-none cursor-pointer"
+            type="button"
+          >
+            &larr; Back
+          </button>
+        </div>
+      </div>
+
       <div class="pt-12 md:pt-16 text-center text-xs md:text-sm text-gray-400 border-t border-gray-700 mt-12 md:mt-16">
         <div class="mb-4">
           <a href="/terms-of-service.html" class="hover:text-white transition-colors" data-umami-event="footer-terms-of-service">Terms of Service</a>
@@ -511,6 +599,170 @@
           }
         });
       }
+    })();
+  </script>
+
+  <!-- Newsletter Form Script -->
+  <script>
+    function submitHandler(event) {
+      event.preventDefault();
+      var container = event.target.parentNode;
+      var form = container.querySelector(".newsletter-form");
+      var formInput = container.querySelector(".newsletter-form-input");
+      var success = container.querySelector(".newsletter-success");
+      var errorContainer = container.querySelector(".newsletter-error");
+      var errorMessage = container.querySelector(".newsletter-error-message");
+      var backButton = container.querySelector(".newsletter-back-button");
+      var submitButton = container.querySelector(".newsletter-form-button");
+      var loadingButton = container.querySelector(".newsletter-loading-button");
+
+      const rateLimit = () => {
+        errorContainer.style.display = "flex";
+        errorContainer.classList.remove("hidden");
+        errorMessage.innerText = "Too many signups, please try again in a little while";
+        submitButton.style.display = "none";
+        submitButton.classList.add("hidden");
+        formInput.style.display = "none";
+        formInput.classList.add("hidden");
+        backButton.style.display = "block";
+        backButton.classList.remove("hidden");
+      }
+
+      // Compare current time with time of previous sign up
+      var time = new Date();
+      var timestamp = time.valueOf();
+      var previousTimestamp = localStorage.getItem("loops-form-timestamp");
+
+      // If last sign up was less than a minute ago, display error
+      if (previousTimestamp && Number(previousTimestamp) + 60000 > timestamp) {
+        rateLimit();
+        return;
+      }
+      localStorage.setItem("loops-form-timestamp", timestamp);
+
+      submitButton.style.display = "none";
+      submitButton.classList.add("hidden");
+      loadingButton.style.display = "flex";
+      loadingButton.classList.remove("hidden");
+
+      var formBody = "userGroup=Mailing%20List&mailingLists=&email="
+        + encodeURIComponent(formInput.value);
+
+      fetch(event.target.action, {
+        method: "POST",
+        body: formBody,
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      })
+        .then((res) => [res.ok, res.json(), res])
+        .then(([ok, dataPromise, res]) => {
+          if (ok) {
+            // If response successful, display success
+            success.style.display = "flex";
+            success.classList.remove("hidden");
+            form.reset();
+          } else {
+            // If response unsuccessful, display error message or response status
+            dataPromise.then(data => {
+              errorContainer.style.display = "flex";
+              errorContainer.classList.remove("hidden");
+              errorMessage.innerText = data.message ? data.message : res.statusText;
+            });
+          }
+        })
+        .catch(error => {
+          // Check for cloudflare error
+          if (error.message === "Failed to fetch") {
+            rateLimit();
+            return;
+          }
+          // If error caught, display error message if available
+          errorContainer.style.display = "flex";
+          errorContainer.classList.remove("hidden");
+          if (error.message) errorMessage.innerText = error.message;
+          localStorage.setItem("loops-form-timestamp", '');
+        })
+        .finally(() => {
+          formInput.style.display = "none";
+          formInput.classList.add("hidden");
+          loadingButton.style.display = "none";
+          loadingButton.classList.add("hidden");
+          backButton.style.display = "block";
+          backButton.classList.remove("hidden");
+        });
+    }
+
+    function resetFormHandler(event) {
+      var container = event.target.parentNode;
+      var formInput = container.querySelector(".newsletter-form-input");
+      var success = container.querySelector(".newsletter-success");
+      var errorContainer = container.querySelector(".newsletter-error");
+      var errorMessage = container.querySelector(".newsletter-error-message");
+      var backButton = container.querySelector(".newsletter-back-button");
+      var submitButton = container.querySelector(".newsletter-form-button");
+
+      success.style.display = "none";
+      success.classList.add("hidden");
+      errorContainer.style.display = "none";
+      errorContainer.classList.add("hidden");
+      errorMessage.innerText = "Oops! Something went wrong, please try again";
+      backButton.style.display = "none";
+      backButton.classList.add("hidden");
+      formInput.style.display = "flex";
+      formInput.classList.remove("hidden");
+      submitButton.style.display = "flex";
+      submitButton.classList.remove("hidden");
+    }
+
+    var formContainers = document.getElementsByClassName("newsletter-form-container");
+
+    for (var i = 0; i < formContainers.length; i++) {
+      var formContainer = formContainers[i]
+      var handlersAdded = formContainer.classList.contains('newsletter-handlers-added')
+      if (handlersAdded) continue;
+      formContainer
+        .querySelector(".newsletter-form")
+        .addEventListener("submit", submitHandler);
+      formContainer
+        .querySelector(".newsletter-back-button")
+        .addEventListener("click", resetFormHandler);
+      formContainer.classList.add("newsletter-handlers-added");
+    }
+  </script>
+
+  <!-- Cookie Consent Script -->
+  <script>
+    (function() {
+      var banner = document.getElementById('cookie-banner');
+      var acceptButton = document.getElementById('cookie-accept');
+      var declineButton = document.getElementById('cookie-decline');
+      var CONSENT_KEY = 'synthpatch-cookie-consent';
+
+      // Check if user has already made a choice
+      var consent = localStorage.getItem(CONSENT_KEY);
+
+      if (!consent) {
+        // Show banner if no choice has been made
+        banner.classList.remove('hidden');
+      } else if (consent === 'declined') {
+        // If user declined, disable Umami
+        localStorage.setItem('umami.disabled', '1');
+      }
+
+      // Handle accept
+      acceptButton.addEventListener('click', function() {
+        localStorage.setItem(CONSENT_KEY, 'accepted');
+        localStorage.removeItem('umami.disabled');
+        banner.classList.add('hidden');
+      });
+
+      // Handle decline
+      declineButton.addEventListener('click', function() {
+        localStorage.setItem(CONSENT_KEY, 'declined');
+        localStorage.setItem('umami.disabled', '1');
+        banner.classList.add('hidden');
+      });
     })();
   </script>
 </body>

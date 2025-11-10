@@ -197,6 +197,36 @@
 </head>
 
 <body class="font-sans min-h-full flex flex-col">
+  <!-- Cookie Consent Banner -->
+  <div id="cookie-banner" class="hidden fixed bottom-0 left-0 right-0 bg-black text-white py-4 md:py-6 z-50 border-t-2 border-gray-700">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="text-center md:text-left">
+          <p class="text-sm md:text-base text-gray-300">
+            We use privacy-focused analytics to improve your experience. No personal data is collected.
+            <a href="/privacy-policy.html" class="text-white underline hover:text-gray-300 transition-colors" data-umami-event="cookie-banner-privacy-link">Learn more</a>
+          </p>
+        </div>
+        <div class="flex gap-3 flex-shrink-0">
+          <button
+            id="cookie-accept"
+            class="bg-white text-black hover:bg-gray-100 px-6 py-2 rounded-lg font-semibold text-sm transition-colors whitespace-nowrap"
+            data-umami-event="cookie-banner-accept"
+          >
+            Accept
+          </button>
+          <button
+            id="cookie-decline"
+            class="bg-transparent text-white hover:text-gray-300 border-2 border-white hover:border-gray-300 px-6 py-2 rounded-lg font-semibold text-sm transition-colors whitespace-nowrap"
+            data-umami-event="cookie-banner-decline"
+          >
+            Decline
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Header -->
   <header class="border-b-2 border-gray-200">
     <div class="max-w-7xl mx-auto px-4 md:px-6 py-4">
@@ -338,6 +368,41 @@
           }
         });
       }
+    })();
+  </script>
+
+  <!-- Cookie Consent Script -->
+  <script>
+    (function() {
+      var banner = document.getElementById('cookie-banner');
+      var acceptButton = document.getElementById('cookie-accept');
+      var declineButton = document.getElementById('cookie-decline');
+      var CONSENT_KEY = 'synthpatch-cookie-consent';
+
+      // Check if user has already made a choice
+      var consent = localStorage.getItem(CONSENT_KEY);
+
+      if (!consent) {
+        // Show banner if no choice has been made
+        banner.classList.remove('hidden');
+      } else if (consent === 'declined') {
+        // If user declined, disable Umami
+        localStorage.setItem('umami.disabled', '1');
+      }
+
+      // Handle accept
+      acceptButton.addEventListener('click', function() {
+        localStorage.setItem(CONSENT_KEY, 'accepted');
+        localStorage.removeItem('umami.disabled');
+        banner.classList.add('hidden');
+      });
+
+      // Handle decline
+      declineButton.addEventListener('click', function() {
+        localStorage.setItem(CONSENT_KEY, 'declined');
+        localStorage.setItem('umami.disabled', '1');
+        banner.classList.add('hidden');
+      });
     })();
   </script>
 </body>
