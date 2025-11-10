@@ -285,7 +285,7 @@ You agree to indemnify Synth Patch (Human Crafted LLC) against claims arising fr
 ## Termination
 
 ### Your Right to Terminate
-You may delete your account at any time by contacting hello@humancrafted.co.
+You may delete your account at any time by contacting hello@synthpatch.io.
 
 ### Our Right to Terminate
 We may suspend or terminate your account if you:
