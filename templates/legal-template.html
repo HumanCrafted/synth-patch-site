@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{TITLE}} - Synth Patch</title>
+  <meta name="description" content="{{DESCRIPTION}}">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://synthpatch.io/{{FILENAME}}">
+  <meta property="og:title" content="{{TITLE}} - Synth Patch">
+  <meta property="og:description" content="{{DESCRIPTION}}">
+  <meta property="og:image" content="https://synthpatch.io/brand-assets/og-default.png">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://synthpatch.io/{{FILENAME}}">
+  <meta property="twitter:title" content="{{TITLE}} - Synth Patch">
+  <meta property="twitter:description" content="{{DESCRIPTION}}">
+  <meta property="twitter:image" content="https://synthpatch.io/brand-assets/og-default.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="16x16" href="brand-assets/Favicon/SynthPatch-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="brand-assets/Favicon/SynthPatch-32x32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="brand-assets/Favicon/SynthPatch-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="brand-assets/Favicon/SynthPatch-192x192.png">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Umami Analytics -->
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="80ade1d2-80ab-4ebb-8190-2ae0fdfe8b54"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            'sans': ['Space Grotesk', 'system-ui', 'sans-serif'],
+            'mono': ['IBM Plex Mono', 'monospace'],
+          },
+          colors: {
+            'signal-orange': '#FF6B35',
+            'control-blue': '#0055A4',
+            'patch-green': '#00A878',
+            'warning-yellow': '#FFB700',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --background: 0 0% 98%;
+      --foreground: 0 0% 0%;
+      --card: 0 0% 100%;
+      --card-foreground: 0 0% 0%;
+      --muted: 0 0% 90%;
+      --muted-foreground: 0 0% 48%;
+      --border: 0 0% 90%;
+      --signal-orange: #FF6B35;
+    }
+
+    body {
+      background: hsl(var(--background));
+      color: hsl(var(--foreground));
+    }
+
+    .text-muted-foreground {
+      color: hsl(var(--muted-foreground));
+    }
+
+    .border {
+      border-color: hsl(var(--border));
+    }
+
+    /* Markdown content styling */
+    .markdown-content {
+      line-height: 1.7;
+    }
+
+    .markdown-content h1 {
+      font-family: 'Space Grotesk', system-ui, sans-serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .markdown-content h2 {
+      font-family: 'Space Grotesk', system-ui, sans-serif;
+      font-size: 1.875rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      margin-top: 2.5rem;
+      padding-top: 1rem;
+    }
+
+    .markdown-content h3 {
+      font-family: 'Space Grotesk', system-ui, sans-serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      margin-top: 1.5rem;
+    }
+
+    .markdown-content h4 {
+      font-family: 'Space Grotesk', system-ui, sans-serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .markdown-content p {
+      margin-bottom: 1rem;
+    }
+
+    .markdown-content ul,
+    .markdown-content ol {
+      margin-bottom: 1rem;
+      margin-left: 1.5rem;
+    }
+
+    .markdown-content li {
+      margin-bottom: 0.5rem;
+    }
+
+    .markdown-content ul {
+      list-style-type: disc;
+    }
+
+    .markdown-content ol {
+      list-style-type: decimal;
+    }
+
+    .markdown-content a {
+      color: #0055A4;
+      text-decoration: underline;
+      transition: color 0.2s;
+    }
+
+    .markdown-content a:hover {
+      color: #003d7a;
+    }
+
+    .markdown-content hr {
+      border: none;
+      border-top: 1px solid hsl(var(--border));
+      margin: 2rem 0;
+    }
+
+    .markdown-content strong {
+      font-weight: 600;
+    }
+
+    .markdown-content code {
+      font-family: 'IBM Plex Mono', monospace;
+      background: hsl(var(--muted));
+      padding: 0.125rem 0.375rem;
+      border-radius: 0.25rem;
+      font-size: 0.875em;
+    }
+
+    .markdown-content pre {
+      background: hsl(var(--muted));
+      padding: 1rem;
+      border-radius: 0.5rem;
+      overflow-x: auto;
+      margin-bottom: 1rem;
+    }
+
+    .markdown-content pre code {
+      background: none;
+      padding: 0;
+    }
+
+    @media (max-width: 768px) {
+      .markdown-content h1 {
+        font-size: 2rem;
+      }
+
+      .markdown-content h2 {
+        font-size: 1.5rem;
+      }
+
+      .markdown-content h3 {
+        font-size: 1.25rem;
+      }
+    }
+  </style>
+</head>
+
+<body class="font-sans min-h-full flex flex-col">
+  <!-- Header -->
+  <header class="border-b-2 border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 py-4">
+      <div class="flex items-center justify-between">
+        <!-- Logo -->
+        <a href="/" class="flex items-center">
+          <svg
+            width="32"
+            height="44"
+            viewBox="0 0 102 142"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-8 w-auto"
+          >
+            <path
+              d="M9.7251 132.074C22.5037 128.436 38.8648 123.22 38.8648 111.485C38.8648 93.7523 9.72552 99.8561 9.72534 80.4442C9.7251 54.2307 91.8187 54.9047 91.8187 27.2561C91.8187 4.06187 58.9147 3.34823 58.9147 27.2561C58.9147 46.3824 58.9147 72.4749 58.9147 80.4442"
+              stroke="currentColor"
+              stroke-width="16"
+              stroke-linecap="round"
+              class="text-black"
+            />
+          </svg>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden md:flex items-center gap-6">
+          <a
+            href="/contact.html"
+            class="text-gray-600 hover:text-black font-medium transition-colors"
+            data-umami-event="header-contact"
+          >
+            Contact
+          </a>
+          <a
+            href="https://app.synthpatch.io"
+            class="text-gray-600 hover:text-black font-medium transition-colors"
+            data-umami-event="header-login"
+          >
+            Login
+          </a>
+          <!-- Create Account CTA -->
+          <a
+            href="https://app.synthpatch.io/sign-up"
+            class="bg-black text-white hover:bg-gray-800 px-4 md:px-6 py-2 rounded-lg font-medium transition-colors"
+            data-umami-event="header-create-account"
+          >
+            Create an Account
+          </a>
+        </nav>
+
+        <!-- Mobile Menu Button -->
+        <button
+          id="mobile-menu-button"
+          class="md:hidden p-2 text-gray-600 hover:text-black transition-colors"
+          aria-label="Toggle mobile menu"
+          aria-expanded="false"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            <path id="close-icon" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <nav id="mobile-menu" class="hidden md:hidden border-t border-gray-200 bg-white">
+      <div class="max-w-7xl mx-auto px-4 py-4 space-y-3">
+        <a
+          href="/contact.html"
+          class="block text-gray-600 hover:text-black font-medium transition-colors py-2"
+          data-umami-event="mobile-header-contact"
+        >
+          Contact
+        </a>
+        <a
+          href="https://app.synthpatch.io"
+          class="block text-gray-600 hover:text-black font-medium transition-colors py-2"
+          data-umami-event="mobile-header-login"
+        >
+          Login
+        </a>
+        <a
+          href="https://app.synthpatch.io/sign-up"
+          class="block bg-black text-white hover:bg-gray-800 px-6 py-3 rounded-lg font-medium transition-colors text-center"
+          data-umami-event="mobile-header-create-account"
+        >
+          Create an Account
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-grow">
+    <div class="max-w-4xl mx-auto px-4 md:px-6 py-12 md:py-16">
+      <div class="markdown-content">
+{{CONTENT}}
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-black text-white py-8 md:py-12">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      <div class="text-center text-xs md:text-sm text-gray-400">
+        <div class="mb-4">
+          <a href="/terms-of-service.html" class="hover:text-white transition-colors" data-umami-event="footer-terms-of-service">Terms of Service</a>
+          <span class="mx-2">|</span>
+          <a href="/privacy-policy.html" class="hover:text-white transition-colors" data-umami-event="footer-privacy-policy">Privacy Policy</a>
+        </div>
+        <p>&copy; 2025 Synth Patch. Made with ❤️ by <a href="https://www.humancrafted.co?utm_source=synthpatch" class="hover:text-white transition-colors" data-umami-event="footer-human-crafted">Human Crafted</a>.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mobile Menu Script -->
+  <script>
+    (function() {
+      const menuButton = document.getElementById('mobile-menu-button');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const menuIcon = document.getElementById('menu-icon');
+      const closeIcon = document.getElementById('close-icon');
+
+      if (menuButton && mobileMenu) {
+        menuButton.addEventListener('click', function() {
+          const isOpen = mobileMenu.classList.contains('hidden');
+
+          if (isOpen) {
+            mobileMenu.classList.remove('hidden');
+            menuIcon.classList.add('hidden');
+            closeIcon.classList.remove('hidden');
+            menuButton.setAttribute('aria-expanded', 'true');
+          } else {
+            mobileMenu.classList.add('hidden');
+            menuIcon.classList.remove('hidden');
+            closeIcon.classList.add('hidden');
+            menuButton.setAttribute('aria-expanded', 'false');
+          }
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

@@ -1,3 +1,10 @@
+# Generated legal pages (built from markdown)
+privacy-policy.html
+terms-of-service.html
+
+# Node modules and build artifacts
+node_modules/
+
 # Claude Code project files
 CLAUDE.md
 

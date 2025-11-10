@@ -1,0 +1,12 @@
+{
+  "name": "synth-patch-site",
+  "version": "2.0.0",
+  "description": "Synth Patch brand site - static HTML with automated markdown conversion",
+  "scripts": {
+    "build": "node scripts/convert-markdown.js"
+  },
+  "devDependencies": {
+    "marked": "^11.0.0"
+  },
+  "private": true
+}
