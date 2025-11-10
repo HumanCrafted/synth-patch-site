@@ -96,7 +96,7 @@ We use trusted third-party services to operate Synth Patch:
 - **Privacy Policy:** [clerk.com/privacy](https://clerk.com/privacy)
 
 ### Vercel (Hosting & Storage)
-- **Purpose:** Application hosting and file storage (audio, SVG assets)
+- **Purpose:** Application hosting and file storage (audio, interactive synth assets)
 - **Data Shared:** All application data and uploaded files
 - **Privacy Policy:** [vercel.com/legal/privacy-policy](https://vercel.com/legal/privacy-policy)
 
@@ -106,8 +106,8 @@ We use trusted third-party services to operate Synth Patch:
 - **Privacy Policy:** [neon.tech/privacy-policy](https://neon.tech/privacy-policy)
 
 ### Loops (Email Marketing)
-- **Purpose:** Waitlist management and email communications
-- **Data Shared:** Email address, user role, account status
+- **Purpose:** Email communications
+- **Data Shared:** Email address, user role, account status, and patch count
 - **Privacy Policy:** [loops.so/privacy](https://loops.so/privacy)
 
 ---
@@ -216,4 +216,4 @@ You have the right to:
 - Data portability
 - Withdraw consent at any time
 
-To exercise these rights, contact hello@synthpatch.io.
+To exercise these rights, contact legal@synthpatch.io.
