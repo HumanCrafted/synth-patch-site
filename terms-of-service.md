@@ -2,7 +2,7 @@
 
 **Effective Date:** October 13, 2025
 
-**Last Updated:** November 3, 2025
+**Last Updated:** November 11, 2025
 
 ---
 
@@ -11,6 +11,8 @@
 By accessing or using Synth Patch, you agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, do not use our service.
 
 Synth Patch is operated by **Human Crafted LLC**, located in Wisconsin, USA.
+
+**Consent for Existing Users:** These Terms of Service are effective as of October 13, 2025. Users who created accounts before November 11, 2025 (when explicit consent collection was implemented) are bound by these terms through their continued use of the Service. Your continued access to or use of Synth Patch constitutes acceptance of these Terms.
 
 ---
 
