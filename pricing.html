@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pricing - Synth Patch</title>
+  <meta name="description" content="Choose the perfect plan for your synthesizer patch management needs. Start free with 20 patches, or go Pro for unlimited patches and premium features.">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://synthpatch.io/pricing">
+  <meta property="og:title" content="Pricing - Synth Patch">
+  <meta property="og:description" content="Choose the perfect plan for your synthesizer patch management needs. Start free with 20 patches, or go Pro for unlimited patches and premium features.">
+  <meta property="og:image" content="https://synthpatch.io/brand-assets/og-default.png">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://synthpatch.io/pricing">
+  <meta property="twitter:title" content="Pricing - Synth Patch">
+  <meta property="twitter:description" content="Choose the perfect plan for your synthesizer patch management needs. Start free with 20 patches, or go Pro for unlimited patches and premium features.">
+  <meta property="twitter:image" content="https://synthpatch.io/brand-assets/og-default.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="16x16" href="brand-assets/Favicon/SynthPatch-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="brand-assets/Favicon/SynthPatch-32x32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="brand-assets/Favicon/SynthPatch-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="brand-assets/Favicon/SynthPatch-192x192.png">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Umami Analytics -->
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="80ade1d2-80ab-4ebb-8190-2ae0fdfe8b54"></script>
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Synth Patch",
+    "description": "Professional synthesizer patch management with interactive vector interfaces",
+    "url": "https://synthpatch.io",
+    "offers": [
+      {
+        "@type": "Offer",
+        "name": "Free",
+        "price": "0",
+        "priceCurrency": "USD",
+        "description": "Up to 20 saved patches with full access to all synthesizers"
+      },
+      {
+        "@type": "Offer",
+        "name": "Pro",
+        "price": "8",
+        "priceCurrency": "USD",
+        "description": "Unlimited patches with premium features and priority support"
+      }
+    ]
+  }
+  </script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            'sans': ['Space Grotesk', 'system-ui', 'sans-serif'],
+            'mono': ['IBM Plex Mono', 'monospace'],
+          },
+          colors: {
+            'signal-orange': '#FF6B35',
+            'control-blue': '#0055A4',
+            'patch-green': '#00A878',
+            'warning-yellow': '#FFB700',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --background: 0 0% 98%;
+      --foreground: 0 0% 0%;
+      --card: 0 0% 100%;
+      --card-foreground: 0 0% 0%;
+      --muted: 0 0% 90%;
+      --muted-foreground: 0 0% 48%;
+      --border: 0 0% 90%;
+      --signal-orange: #FF6B35;
+    }
+
+    .dark {
+      --background: 0 0% 4%;
+      --foreground: 0 0% 98%;
+      --card: 0 0% 8%;
+      --card-foreground: 0 0% 98%;
+      --muted: 0 0% 10%;
+      --muted-foreground: 0 0% 54%;
+      --border: 0 0% 10%;
+    }
+
+    body {
+      background: hsl(var(--background));
+      color: hsl(var(--foreground));
+    }
+
+    .card {
+      background: hsl(var(--card));
+      color: hsl(var(--card-foreground));
+    }
+
+    .text-muted-foreground {
+      color: hsl(var(--muted-foreground));
+    }
+
+    .border {
+      border-color: hsl(var(--border));
+    }
+
+    .bg-muted {
+      background: hsl(var(--muted));
+    }
+
+    .pricing-card-popular {
+      border: 3px solid #000;
+    }
+  </style>
+</head>
+
+<body class="font-sans min-h-full">
+  <!-- Cookie Consent Banner -->
+  <div id="cookie-banner" class="hidden fixed bottom-0 left-0 right-0 bg-black text-white py-4 md:py-6 z-50 border-t-2 border-gray-700">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="text-center md:text-left">
+          <p class="text-sm md:text-base text-gray-300">
+            We use privacy-focused analytics to improve your experience. No personal data is collected.
+            <a href="/privacy-policy.html" class="text-white underline hover:text-gray-300 transition-colors" data-umami-event="cookie-banner-privacy-link">Learn more</a>
+          </p>
+        </div>
+        <div class="flex gap-3 flex-shrink-0">
+          <button
+            id="cookie-accept"
+            class="bg-white text-black hover:bg-gray-100 px-6 py-2 rounded-lg font-semibold text-sm transition-colors whitespace-nowrap"
+            data-umami-event="cookie-banner-accept"
+          >
+            Accept
+          </button>
+          <button
+            id="cookie-decline"
+            class="bg-transparent text-white hover:text-gray-300 border-2 border-white hover:border-gray-300 px-6 py-2 rounded-lg font-semibold text-sm transition-colors whitespace-nowrap"
+            data-umami-event="cookie-banner-decline"
+          >
+            Decline
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="border-b-2 border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 py-4">
+      <div class="flex items-center justify-between">
+        <!-- Logo -->
+        <a href="/" class="flex items-center">
+          <svg
+            width="32"
+            height="44"
+            viewBox="0 0 102 142"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-8 w-auto"
+          >
+            <path
+              d="M9.7251 132.074C22.5037 128.436 38.8648 123.22 38.8648 111.485C38.8648 93.7523 9.72552 99.8561 9.72534 80.4442C9.7251 54.2307 91.8187 54.9047 91.8187 27.2561C91.8187 4.06187 58.9147 3.34823 58.9147 27.2561C58.9147 46.3824 58.9147 72.4749 58.9147 80.4442"
+              stroke="currentColor"
+              stroke-width="16"
+              stroke-linecap="round"
+              class="text-black"
+            />
+          </svg>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden md:flex items-center gap-6">
+          <a
+            href="/contact.html"
+            class="text-gray-600 hover:text-black font-medium transition-colors"
+            data-umami-event="header-contact"
+          >
+            Contact
+          </a>
+          <a
+            href="https://app.synthpatch.io"
+            class="text-gray-600 hover:text-black font-medium transition-colors"
+            data-umami-event="header-login"
+          >
+            Login
+          </a>
+          <!-- Get Started CTA -->
+          <a
+            href="https://app.synthpatch.io/sign-up"
+            class="bg-black text-white hover:bg-gray-800 px-4 md:px-6 py-2 rounded-lg font-medium transition-colors"
+            data-umami-event="header-get-started"
+          >
+            Get Started
+          </a>
+        </nav>
+
+        <!-- Mobile Menu Button -->
+        <button
+          id="mobile-menu-button"
+          class="md:hidden p-2 text-gray-600 hover:text-black transition-colors"
+          aria-label="Toggle mobile menu"
+          aria-expanded="false"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            <path id="close-icon" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <nav id="mobile-menu" class="hidden md:hidden border-t border-gray-200 bg-white">
+      <div class="max-w-7xl mx-auto px-4 py-4 space-y-3">
+        <a
+          href="/contact.html"
+          class="block text-gray-600 hover:text-black font-medium transition-colors py-2"
+          data-umami-event="mobile-header-contact"
+        >
+          Contact
+        </a>
+        <a
+          href="https://app.synthpatch.io"
+          class="block text-gray-600 hover:text-black font-medium transition-colors py-2"
+          data-umami-event="mobile-header-login"
+        >
+          Login
+        </a>
+        <a
+          href="https://app.synthpatch.io/sign-up"
+          class="block bg-black text-white hover:bg-gray-800 px-6 py-3 rounded-lg font-medium transition-colors text-center"
+          data-umami-event="mobile-header-get-started"
+        >
+          Get Started
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="py-12 md:py-20">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 text-center">
+      <h1 class="text-3xl md:text-5xl font-bold font-sans mb-4 md:mb-6">Choose a Plan</h1>
+      <p class="text-base md:text-xl text-muted-foreground max-w-2xl mx-auto">
+        Start free and upgrade anytime. All plans include access to our growing collection of synthesizers and community features.
+      </p>
+    </div>
+  </section>
+
+  <!-- Pricing Cards -->
+  <section class="pb-12 md:pb-20">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      <div class="grid md:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto">
+
+        <!-- Free Plan -->
+        <div class="card rounded-2xl p-6 md:p-8 border-2 border-gray-200">
+          <div class="mb-6">
+            <h3 class="text-xl md:text-2xl font-bold mb-2">Free</h3>
+            <div class="flex items-baseline mb-4">
+              <span class="text-4xl md:text-5xl font-bold">$0</span>
+              <span class="text-muted-foreground ml-2">/month</span>
+            </div>
+            <p class="text-sm text-muted-foreground">Perfect for getting started or just casual use</p>
+          </div>
+
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-start">
+              <svg class="w-5 h-5 text-patch-green mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+              </svg>
+              <span class="text-sm">Up to 20 saved patches with notes and uploaded audio clips</span>
+            </li>
+            <li class="flex items-start">
+              <svg class="w-5 h-5 text-patch-green mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+              </svg>
+              <span class="text-sm">Access to all synthesizers</span>
+            </li>
+            <li class="flex items-start">
+              <svg class="w-5 h-5 text-patch-green mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+              </svg>
+              <span class="text-sm">Patch sharing and community features</span>
+            </li>
+            <li class="flex items-start">
+              <svg class="w-5 h-5 text-patch-green mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+              </svg>
+              <span class="text-sm">Printed patch sheets</span>
+            </li>
+            <li class="flex items-start">
+              <svg class="w-5 h-5 text-patch-green mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+              </svg>
+              <span class="text-sm">Raw JSON formatted patch data</span>
+            </li>
+            <li class="flex items-start">
+              <svg class="w-5 h-5 text-muted-foreground mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
+              </svg>
+              <span class="text-sm text-muted-foreground">Patch exports coming soon</span>
+            </li>
+          </ul>
+
+          <a
+            href="https://app.synthpatch.io/sign-up"
+            class="block w-full text-center bg-black text-white hover:bg-gray-800 px-6 py-3 rounded-lg font-semibold transition-colors"
+            data-umami-event="pricing-free-get-started"
+          >
+            Get Started
+          </a>
+        </div>
+
+        <!-- Pro Plan -->
+        <div class="card rounded-2xl p-6 md:p-8 pricing-card-popular">
+          <div class="mb-6">
+            <h3 class="text-xl md:text-2xl font-bold mb-2">Pro</h3>
+            <div class="flex items-baseline mb-4">
+              <span class="text-4xl md:text-5xl font-bold">$8</span>
+              <span class="text-muted-foreground ml-2">/month</span>
+              <span class="text-xs text-muted-foreground ml-2">or</span>
+              <span class="text-xs text-muted-foreground ml-2">$60/year</span>
+            </div>
+            <p class="text-sm font-medium text-patch-green">Save $36/year with annual billing</p>
+          </div>
+
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-start">
+              <svg class="w-5 h-5 text-patch-green mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+              </svg>
+              <span class="text-sm font-semibold">Everything in Free</span>
+            </li>
+            <li class="flex items-start">
+              <svg class="w-5 h-5 text-patch-green mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+              </svg>
+              <span class="text-sm font-semibold">Unlimited saved patches</span>
+            </li>
+            <li class="flex items-start">
+              <svg class="w-5 h-5 text-patch-green mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+              </svg>
+              <span class="text-sm font-semibold">Private Link sharing</span>
+            </li>
+            <li class="flex items-start">
+              <svg class="w-5 h-5 text-patch-green mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+              </svg>
+              <span class="text-sm font-semibold">Support the app maker</span>
+            </li>
+            <li class="flex items-start">
+              <svg class="w-5 h-5 text-patch-green mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+              </svg>
+              <span class="text-sm font-semibold">Priority support</span>
+            </li>
+            <li class="flex items-start">
+              <svg class="w-5 h-5 text-muted-foreground mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
+              </svg>
+              <span class="text-sm text-muted-foreground">More advanced Pro-only features coming soon</span>
+            </li>
+          </ul>
+
+          <a
+            href="https://app.synthpatch.io/sign-up"
+            class="block w-full text-center bg-black text-white hover:bg-gray-800 px-6 py-3 rounded-lg font-semibold transition-colors"
+            data-umami-event="pricing-pro-get-started"
+          >
+            Get Started with Pro
+          </a>
+        </div>
+
+        <!-- Maker Plan -->
+        <div class="card rounded-2xl p-6 md:p-8 border-2 border-gray-200">
+          <div class="mb-6">
+            <h3 class="text-xl md:text-2xl font-bold mb-2">Maker</h3>
+            <div class="flex items-baseline mb-4">
+              <span class="text-3xl md:text-4xl font-bold">Custom</span>
+            </div>
+            <p class="text-sm text-muted-foreground">For brands and makers</p>
+          </div>
+
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-start">
+              <svg class="w-5 h-5 text-patch-green mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+              </svg>
+              <span class="text-sm">Everything in Pro</span>
+            </li>
+            <li class="flex items-start">
+              <svg class="w-5 h-5 text-patch-green mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+              </svg>
+              <span class="text-sm">Dedicated support</span>
+            </li>
+            <li class="flex items-start">
+              <svg class="w-5 h-5 text-patch-green mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+              </svg>
+              <span class="text-sm">Custom development or integrations</span>
+            </li>
+          </ul>
+
+          <a
+            href="/contact.html"
+            class="block w-full text-center bg-black text-white hover:bg-gray-800 px-6 py-3 rounded-lg font-semibold transition-colors"
+            data-umami-event="pricing-enterprise-contact"
+          >
+            Contact Us
+          </a>
+        </div>
+
+      </div>
+
+      <!-- No Lock-in Message -->
+      <div class="max-w-2xl mx-auto mt-8 md:mt-12 text-center">
+        <p class="text-base md:text-xl text-muted-foreground">
+          No matter which plan you choose, you will always have access to exports so you are never locked in.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-12 md:py-20 bg-muted">
+    <div class="max-w-4xl mx-auto px-4 md:px-6">
+      <h2 class="text-2xl md:text-3xl font-bold text-center mb-8 md:mb-12">Frequently Asked Questions</h2>
+
+      <div class="space-y-6">
+        <!-- FAQ 1 -->
+        <div class="card rounded-xl p-6">
+          <h3 class="font-semibold text-lg mb-2">What happens when I hit 20 patches on the Free plan?</h3>
+          <p class="text-muted-foreground text-sm">
+            You'll need to delete some patches to create new ones, or upgrade to Pro for unlimited patches. Your existing patches are never deleted automatically.
+          </p>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="card rounded-xl p-6">
+          <h3 class="font-semibold text-lg mb-2">Can I upgrade or downgrade anytime?</h3>
+          <p class="text-muted-foreground text-sm">
+            Yes! You can upgrade to Pro at any time. If you downgrade from Pro to Free, you'll keep all your patches but won't be able to create new ones if you have more than 20 until you delete some.
+          </p>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="card rounded-xl p-6">
+          <h3 class="font-semibold text-lg mb-2">How does annual billing work?</h3>
+          <p class="text-muted-foreground text-sm">
+            With annual billing, you pay only $60/year instead of $8/month ($96/year), saving you $36. You'll be billed once per year and can cancel anytime, with access until the end of your billing period.
+          </p>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="card rounded-xl p-6">
+          <h3 class="font-semibold text-lg mb-2">Can I cancel my Pro subscription anytime?</h3>
+          <p class="text-muted-foreground text-sm">
+            Yes, you can cancel your Pro subscription at any time. You'll continue to have Pro access until the end of your current billing period.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer with CTA -->
+  <footer class="bg-black text-white py-12 md:py-20">
+    <div class="max-w-4xl mx-auto px-4 md:px-6 text-center">
+      <h2 class="text-2xl md:text-4xl font-bold font-sans mb-4 md:mb-6">Ready to Get Started?</h2>
+      <p class="text-base md:text-xl text-gray-300 mb-6 md:mb-8">
+        Start using Synth Patch today.
+      </p>
+
+      <a
+        href="https://app.synthpatch.io/sign-up"
+        class="inline-block bg-white text-black hover:bg-gray-100 px-8 py-3 md:py-4 rounded-lg font-semibold text-base md:text-lg transition-colors"
+        data-umami-event="footer-get-started"
+      >
+        Get Started
+      </a>
+
+      <p class="text-xs md:text-sm text-gray-400 mt-4 md:mt-6">
+        New synths are being added regularly. Join now!
+      </p>
+
+      <!-- Newsletter Signup -->
+      <div class="mt-12 md:mt-16">
+        <p class="text-base md:text-xl text-gray-300 mb-6 md:mb-8">
+          Prefer to just stay in the loop?
+        </p>
+
+        <div class="newsletter-form-container max-w-md mx-auto">
+          <form
+            class="newsletter-form"
+            action="https://app.loops.so/api/newsletter-form/cmfh3sbz81y8d1d0iykyege24"
+            method="POST"
+            data-umami-event="newsletter-signup-submit"
+          >
+            <div class="flex flex-col sm:flex-row gap-3 justify-center items-center w-full">
+              <input
+                class="newsletter-form-input w-full sm:w-auto flex-1 max-w-xs px-4 py-3 rounded-lg bg-white text-black border-2 border-gray-300 focus:outline-none focus:border-white transition-colors font-sans text-sm md:text-base"
+                placeholder="you@example.com"
+                required
+                type="email"
+                name="newsletter-form-input"
+              >
+              <button
+                type="submit"
+                class="newsletter-form-button w-full sm:w-auto bg-white text-black hover:bg-gray-100 px-6 py-3 rounded-lg font-semibold text-sm md:text-base transition-colors font-sans whitespace-nowrap"
+              >
+                Join Mailing List
+              </button>
+              <button
+                type="button"
+                class="newsletter-loading-button hidden w-full sm:w-auto bg-gray-400 text-black px-6 py-3 rounded-lg font-semibold text-sm md:text-base font-sans whitespace-nowrap cursor-not-allowed"
+                disabled
+              >
+                Please wait...
+              </button>
+            </div>
+          </form>
+
+          <div class="newsletter-success hidden mt-4">
+            <p class="newsletter-success-message text-green-400 font-sans text-sm md:text-base">
+              Thanks! We'll be in touch!
+            </p>
+          </div>
+
+          <div class="newsletter-error hidden mt-4">
+            <p class="newsletter-error-message text-red-400 font-sans text-sm md:text-base">
+              Oops! Something went wrong, please try again
+            </p>
+          </div>
+
+          <button
+            class="newsletter-back-button hidden mt-4 text-gray-400 hover:text-white font-sans text-sm transition-colors bg-transparent border-none cursor-pointer"
+            type="button"
+          >
+            &larr; Back
+          </button>
+        </div>
+      </div>
+
+      <div class="pt-12 md:pt-16 text-center text-xs md:text-sm text-gray-400 border-t border-gray-700 mt-12 md:mt-16">
+        <div class="mb-4">
+          <a href="/terms-of-service.html" class="hover:text-white transition-colors" data-umami-event="footer-terms-of-service">Terms of Service</a>
+          <span class="mx-2">|</span>
+          <a href="/privacy-policy.html" class="hover:text-white transition-colors" data-umami-event="footer-privacy-policy">Privacy Policy</a>
+        </div>
+        <p>&copy; 2025 Synth Patch. Made with ❤️ by <a href="https://www.humancrafted.co?utm_source=synthpatch" class="hover:text-white transition-colors" data-umami-event="footer-human-crafted">Human Crafted</a>.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mobile Menu Script -->
+  <script>
+    (function() {
+      const menuButton = document.getElementById('mobile-menu-button');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const menuIcon = document.getElementById('menu-icon');
+      const closeIcon = document.getElementById('close-icon');
+
+      if (menuButton && mobileMenu) {
+        menuButton.addEventListener('click', function() {
+          const isOpen = mobileMenu.classList.contains('hidden');
+
+          if (isOpen) {
+            mobileMenu.classList.remove('hidden');
+            menuIcon.classList.add('hidden');
+            closeIcon.classList.remove('hidden');
+            menuButton.setAttribute('aria-expanded', 'true');
+          } else {
+            mobileMenu.classList.add('hidden');
+            menuIcon.classList.remove('hidden');
+            closeIcon.classList.add('hidden');
+            menuButton.setAttribute('aria-expanded', 'false');
+          }
+        });
+      }
+    })();
+  </script>
+
+  <!-- Newsletter Form Script -->
+  <script>
+    function submitHandler(event) {
+      event.preventDefault();
+      var container = event.target.parentNode;
+      var form = container.querySelector(".newsletter-form");
+      var formInput = container.querySelector(".newsletter-form-input");
+      var success = container.querySelector(".newsletter-success");
+      var errorContainer = container.querySelector(".newsletter-error");
+      var errorMessage = container.querySelector(".newsletter-error-message");
+      var backButton = container.querySelector(".newsletter-back-button");
+      var submitButton = container.querySelector(".newsletter-form-button");
+      var loadingButton = container.querySelector(".newsletter-loading-button");
+
+      const rateLimit = () => {
+        errorContainer.style.display = "flex";
+        errorContainer.classList.remove("hidden");
+        errorMessage.innerText = "Too many signups, please try again in a little while";
+        submitButton.style.display = "none";
+        submitButton.classList.add("hidden");
+        formInput.style.display = "none";
+        formInput.classList.add("hidden");
+        backButton.style.display = "block";
+        backButton.classList.remove("hidden");
+      }
+
+      // Compare current time with time of previous sign up
+      var time = new Date();
+      var timestamp = time.valueOf();
+      var previousTimestamp = localStorage.getItem("loops-form-timestamp");
+
+      // If last sign up was less than a minute ago, display error
+      if (previousTimestamp && Number(previousTimestamp) + 60000 > timestamp) {
+        rateLimit();
+        return;
+      }
+      localStorage.setItem("loops-form-timestamp", timestamp);
+
+      submitButton.style.display = "none";
+      submitButton.classList.add("hidden");
+      loadingButton.style.display = "flex";
+      loadingButton.classList.remove("hidden");
+
+      var formBody = "userGroup=Mailing%20List&mailingLists=&email="
+        + encodeURIComponent(formInput.value);
+
+      fetch(event.target.action, {
+        method: "POST",
+        body: formBody,
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      })
+        .then((res) => [res.ok, res.json(), res])
+        .then(([ok, dataPromise, res]) => {
+          if (ok) {
+            // If response successful, display success
+            success.style.display = "flex";
+            success.classList.remove("hidden");
+            form.reset();
+          } else {
+            // If response unsuccessful, display error message or response status
+            dataPromise.then(data => {
+              errorContainer.style.display = "flex";
+              errorContainer.classList.remove("hidden");
+              errorMessage.innerText = data.message ? data.message : res.statusText;
+            });
+          }
+        })
+        .catch(error => {
+          // Check for cloudflare error
+          if (error.message === "Failed to fetch") {
+            rateLimit();
+            return;
+          }
+          // If error caught, display error message if available
+          errorContainer.style.display = "flex";
+          errorContainer.classList.remove("hidden");
+          if (error.message) errorMessage.innerText = error.message;
+          localStorage.setItem("loops-form-timestamp", '');
+        })
+        .finally(() => {
+          formInput.style.display = "none";
+          formInput.classList.add("hidden");
+          loadingButton.style.display = "none";
+          loadingButton.classList.add("hidden");
+          backButton.style.display = "block";
+          backButton.classList.remove("hidden");
+        });
+    }
+
+    function resetFormHandler(event) {
+      var container = event.target.parentNode;
+      var formInput = container.querySelector(".newsletter-form-input");
+      var success = container.querySelector(".newsletter-success");
+      var errorContainer = container.querySelector(".newsletter-error");
+      var errorMessage = container.querySelector(".newsletter-error-message");
+      var backButton = container.querySelector(".newsletter-back-button");
+      var submitButton = container.querySelector(".newsletter-form-button");
+
+      success.style.display = "none";
+      success.classList.add("hidden");
+      errorContainer.style.display = "none";
+      errorContainer.classList.add("hidden");
+      errorMessage.innerText = "Oops! Something went wrong, please try again";
+      backButton.style.display = "none";
+      backButton.classList.add("hidden");
+      formInput.style.display = "flex";
+      formInput.classList.remove("hidden");
+      submitButton.style.display = "flex";
+      submitButton.classList.remove("hidden");
+    }
+
+    var formContainers = document.getElementsByClassName("newsletter-form-container");
+
+    for (var i = 0; i < formContainers.length; i++) {
+      var formContainer = formContainers[i]
+      var handlersAdded = formContainer.classList.contains('newsletter-handlers-added')
+      if (handlersAdded) continue;
+      formContainer
+        .querySelector(".newsletter-form")
+        .addEventListener("submit", submitHandler);
+      formContainer
+        .querySelector(".newsletter-back-button")
+        .addEventListener("click", resetFormHandler);
+      formContainer.classList.add("newsletter-handlers-added");
+    }
+  </script>
+
+  <!-- Cookie Consent Script -->
+  <script>
+    (function() {
+      var banner = document.getElementById('cookie-banner');
+      var acceptButton = document.getElementById('cookie-accept');
+      var declineButton = document.getElementById('cookie-decline');
+      var CONSENT_KEY = 'synthpatch-cookie-consent';
+
+      // Check if user has already made a choice
+      var consent = localStorage.getItem(CONSENT_KEY);
+
+      if (!consent) {
+        // Show banner if no choice has been made
+        banner.classList.remove('hidden');
+      } else if (consent === 'declined') {
+        // If user declined, disable Umami
+        localStorage.setItem('umami.disabled', '1');
+      }
+
+      // Handle accept
+      acceptButton.addEventListener('click', function() {
+        localStorage.setItem(CONSENT_KEY, 'accepted');
+        localStorage.removeItem('umami.disabled');
+        banner.classList.add('hidden');
+      });
+
+      // Handle decline
+      declineButton.addEventListener('click', function() {
+        localStorage.setItem(CONSENT_KEY, 'declined');
+        localStorage.setItem('umami.disabled', '1');
+        banner.classList.add('hidden');
+      });
+    })();
+  </script>
+</body>
+</html>
