@@ -9,10 +9,14 @@ Please fill in the manufacturer and synth name for each thumbnail below.
 
 ---
 
-## Synth List (16 found, expecting 17 total)
+## Synth List
 
 | Filename | Manufacturer | Synth Name |
 |----------|--------------|------------|
+| `mf-thumbnail-3516w.png` | Arturia | MicroFreak |
+| `ms20-thumbnail-5591w.png` | Korg | MS-20 mini |
+| `min-thumbnail-2520w.png` | Moog | Minitaur |
+| `sub-thumbnail-3620w.png` | Moog | Subharmonicon |
 | `BASTL Kastle ARP - Thumbnail.png` | BASTL | Kastle ARP |
 | `Sound Workshop Quord - Thumbnail.png` | Sound Workshop | Quord |
 | `Spotykach Thumbnail.png` | Synthux Academy | Spotykach |
@@ -31,11 +35,3 @@ Please fill in the manufacturer and synth name for each thumbnail below.
 | `strega-thumbnail-2592w.png` | Make Noise | Strega |
 
 ---
-
-## Notes
-
-- **Current count:** 16 thumbnails
-- **Expected count:** 17 synthesizers
-- **Missing:** 1 synth thumbnail (please upload if available)
-
-Once you've filled in all the manufacturer and synth names, I'll use this information to build the "Current Synthesizer Collection" section on the brand site.
