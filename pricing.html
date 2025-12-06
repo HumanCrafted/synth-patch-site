@@ -298,7 +298,15 @@
               <svg class="w-5 h-5 text-patch-green mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
               </svg>
-              <span class="text-sm">Up to 20 saved patches with notes and uploaded audio clips</span>
+              <div>
+                <span class="text-sm">Up to 20 saved patches with notes and uploaded audio clips</span>
+                <div class="flex items-start mt-1.5 ml-0.5">
+                  <svg class="w-4 h-4 text-warning-yellow mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                  </svg>
+                  <span class="text-xs text-muted-foreground">Plus earn bonus patches: +1 for public shares, +2 for shares with audio clips!</span>
+                </div>
+              </div>
             </li>
             <li class="flex items-start">
               <svg class="w-5 h-5 text-patch-green mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
@@ -479,19 +487,35 @@
         <div class="card rounded-xl p-6">
           <h3 class="font-semibold text-lg mb-2">What happens when I hit 20 patches on the Free plan?</h3>
           <p class="text-muted-foreground text-sm">
-            You'll need to delete some patches to create new ones, or upgrade to Pro for unlimited patches. Your existing patches are never deleted automatically.
+            You won't be able to save additional patches, but you can always share patches publicly to earn bonus patches, delete some patches to make room, or upgrade to Pro for unlimited patches.
           </p>
         </div>
 
         <!-- FAQ 2 -->
         <div class="card rounded-xl p-6">
-          <h3 class="font-semibold text-lg mb-2">Can I upgrade or downgrade anytime?</h3>
+          <h3 class="font-semibold text-lg mb-2">How do bonus patches work?</h3>
           <p class="text-muted-foreground text-sm">
-            Yes! You can upgrade to Pro at any time. If you downgrade from Pro to Free, you'll keep all your patches but won't be able to create new ones if you have more than 20 until you delete some.
+            Free users can earn bonus patches by sharing publicly. You get +1 bonus patch for each public share, and +2 bonus patches if you include an audio clip. There's no limit to how many bonus patches you can earn!
           </p>
         </div>
 
         <!-- FAQ 3 -->
+        <div class="card rounded-xl p-6">
+          <h3 class="font-semibold text-lg mb-2">Can I upgrade or downgrade anytime?</h3>
+          <p class="text-muted-foreground text-sm">
+            Yes! You can upgrade to Pro at any time. If you downgrade from Pro to Free, you'll keep all your patches but won't be able to create new ones until you're under your patch limit (20 + any bonus patches you've earned).
+          </p>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="card rounded-xl p-6">
+          <h3 class="font-semibold text-lg mb-2">What is Private Link sharing?</h3>
+          <p class="text-muted-foreground text-sm">
+            Pro users can create unique private links to their patches that anyone can view anonymously without an account. You can update or revoke these links anytime. It's perfect for sharing with subscribers, Patreon members, or collaborators. Or use them to create patch books you can share or sell on your own.
+          </p>
+        </div>
+
+        <!-- FAQ 5 -->
         <div class="card rounded-xl p-6">
           <h3 class="font-semibold text-lg mb-2">How does annual billing work?</h3>
           <p class="text-muted-foreground text-sm">
@@ -499,7 +523,7 @@
           </p>
         </div>
 
-        <!-- FAQ 4 -->
+        <!-- FAQ 6 -->
         <div class="card rounded-xl p-6">
           <h3 class="font-semibold text-lg mb-2">Can I cancel my Pro subscription anytime?</h3>
           <p class="text-muted-foreground text-sm">
