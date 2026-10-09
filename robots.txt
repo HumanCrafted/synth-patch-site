@@ -1,5 +1,22 @@
 # Robots.txt for synthpatch.io
-# Allow all crawlers
+#
+# AI crawler policy (decided Oct 9, 2026):
+# - Training crawlers are blocked from the whole site.
+# - Search engines, AI search crawlers (OAI-SearchBot, Claude-SearchBot,
+#   PerplexityBot) and live user fetches (ChatGPT-User, Claude-User,
+#   Perplexity-User) are allowed, so the site still shows up in AI answers.
+# Blocking training has no effect on AI search visibility.
+# Google-Extended and Applebot-Extended don't affect Google or Apple search.
+# The app (app.synthpatch.io) has its own robots.txt with the same policy.
+
+User-agent: GPTBot
+User-agent: ClaudeBot
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: Meta-ExternalAgent
+User-agent: CCBot
+User-agent: Bytespider
+Disallow: /
 
 User-agent: *
 Allow: /

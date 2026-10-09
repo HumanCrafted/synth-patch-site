@@ -38,6 +38,7 @@ files.forEach(file => {
       .replace(/{{TITLE}}/g, file.title)
       .replace(/{{DESCRIPTION}}/g, file.description)
       .replace(/{{FILENAME}}/g, file.output)
+      .replace(/{{PAGE_PATH}}/g, file.output.replace(/\.html$/, ''))
       .replace('{{CONTENT}}', htmlContent);
 
     // Write the output file
