@@ -3,7 +3,8 @@
   "version": "2.0.0",
   "description": "Synth Patch brand site - static HTML with automated markdown conversion",
   "scripts": {
-    "build": "node scripts/convert-markdown.js"
+    "build": "node scripts/convert-markdown.js && node scripts/update-synths.js",
+    "update-synths": "node scripts/update-synths.js"
   },
   "devDependencies": {
     "marked": "^11.0.0"
