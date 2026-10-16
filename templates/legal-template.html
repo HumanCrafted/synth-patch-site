@@ -28,8 +28,8 @@
   <link rel="icon" type="image/png" sizes="192x192" href="brand-assets/Favicon/SynthPatch-192x192.png">
 
   <!-- PARTIAL:head -->
-  <!-- Before first paint: apply the theme (shared with the app through a cookie) so
-       dark mode doesn't flash, and honor a cookie-banner answer given on the app
+  <!-- Before first paint: apply the saved theme so dark mode doesn't flash, and
+       honor a cookie-banner answer given on the app (shared through a cookie)
        before Umami loads. assets/site.js does the rest. -->
   <script>
     (function () {
@@ -38,7 +38,7 @@
           var match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
           return match ? decodeURIComponent(match[1]) : null;
         };
-        var theme = read('synthpatch-theme') || localStorage.getItem('synth-patch-theme') || 'system';
+        var theme = localStorage.getItem('synth-patch-theme') || 'system';
         var dark = theme === 'dark' || (theme !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
         document.documentElement.classList.add(dark ? 'dark' : 'light');
 
@@ -242,7 +242,6 @@
 
       <!-- Center Navigation - absolutely centered on the page -->
       <nav class="absolute left-1/2 transform -translate-x-1/2 hidden md:flex items-center gap-6">
-        <a href="https://app.synthpatch.io/explore" class="text-sm font-medium transition-colors hover:text-foreground text-muted-foreground" data-umami-event="header-explore">Explore</a>
         <a href="/pricing" class="text-sm font-medium transition-colors hover:text-foreground text-muted-foreground" data-umami-event="header-pricing">Pricing</a>
         <a href="/contact" class="text-sm font-medium transition-colors hover:text-foreground text-muted-foreground" data-umami-event="header-contact">Contact</a>
       </nav>
@@ -292,7 +291,6 @@
     <!-- Mobile Navigation -->
     <nav id="mobile-nav" class="hidden md:hidden border-t border-border bg-background">
       <div class="flex flex-col px-6 py-2">
-        <a href="https://app.synthpatch.io/explore" class="py-3 text-sm font-medium transition-colors hover:text-foreground text-muted-foreground" data-umami-event="mobile-header-explore">Explore</a>
         <a href="/pricing" class="py-3 text-sm font-medium transition-colors hover:text-foreground text-muted-foreground" data-umami-event="mobile-header-pricing">Pricing</a>
         <a href="/contact" class="py-3 text-sm font-medium transition-colors hover:text-foreground text-muted-foreground" data-umami-event="mobile-header-contact">Contact</a>
       </div>

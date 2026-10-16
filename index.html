@@ -34,8 +34,8 @@
   <link rel="icon" type="image/png" sizes="192x192" href="brand-assets/Favicon/SynthPatch-192x192.png">
   
   <!-- PARTIAL:head -->
-  <!-- Before first paint: apply the theme (shared with the app through a cookie) so
-       dark mode doesn't flash, and honor a cookie-banner answer given on the app
+  <!-- Before first paint: apply the saved theme so dark mode doesn't flash, and
+       honor a cookie-banner answer given on the app (shared through a cookie)
        before Umami loads. assets/site.js does the rest. -->
   <script>
     (function () {
@@ -44,7 +44,7 @@
           var match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
           return match ? decodeURIComponent(match[1]) : null;
         };
-        var theme = read('synthpatch-theme') || localStorage.getItem('synth-patch-theme') || 'system';
+        var theme = localStorage.getItem('synth-patch-theme') || 'system';
         var dark = theme === 'dark' || (theme !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
         document.documentElement.classList.add(dark ? 'dark' : 'light');
 
@@ -130,7 +130,6 @@
 
       <!-- Center Navigation - absolutely centered on the page -->
       <nav class="absolute left-1/2 transform -translate-x-1/2 hidden md:flex items-center gap-6">
-        <a href="https://app.synthpatch.io/explore" class="text-sm font-medium transition-colors hover:text-foreground text-muted-foreground" data-umami-event="header-explore">Explore</a>
         <a href="/pricing" class="text-sm font-medium transition-colors hover:text-foreground text-muted-foreground" data-umami-event="header-pricing">Pricing</a>
         <a href="/contact" class="text-sm font-medium transition-colors hover:text-foreground text-muted-foreground" data-umami-event="header-contact">Contact</a>
       </nav>
@@ -180,7 +179,6 @@
     <!-- Mobile Navigation -->
     <nav id="mobile-nav" class="hidden md:hidden border-t border-border bg-background">
       <div class="flex flex-col px-6 py-2">
-        <a href="https://app.synthpatch.io/explore" class="py-3 text-sm font-medium transition-colors hover:text-foreground text-muted-foreground" data-umami-event="mobile-header-explore">Explore</a>
         <a href="/pricing" class="py-3 text-sm font-medium transition-colors hover:text-foreground text-muted-foreground" data-umami-event="mobile-header-pricing">Pricing</a>
         <a href="/contact" class="py-3 text-sm font-medium transition-colors hover:text-foreground text-muted-foreground" data-umami-event="mobile-header-contact">Contact</a>
       </div>
@@ -232,50 +230,21 @@
         </p>
       </div>
 
-      <!-- Live Moog DFAM: the app's own synth panel (app.synthpatch.io/embed/synth/...),
-           same as its synth page at app.synthpatch.io/synth/moog-dfam-53d6fb -->
-      <div class="max-w-6xl mx-auto text-left space-y-3">
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-          <p class="text-sm text-muted-foreground">
-            <a href="https://app.synthpatch.io/synth/moog-dfam-53d6fb" class="font-medium text-foreground hover:underline" data-umami-event="hero-synth-page">Moog DFAM</a>
-            &middot; Nothing is saved until you use it as a new patch.
-          </p>
-          <div class="flex gap-2 shrink-0">
-            <button
-              type="button"
-              data-synth-reset="hero-synth"
-              class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-none font-mono font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-primary-foreground h-8 px-3 text-xs"
-              data-umami-event="hero-synth-reset"
-            >
-              <svg class="h-4 w-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
-              Reset
-            </button>
-            <button
-              type="button"
-              data-synth-new-patch="hero-synth"
-              data-fallback-url="https://app.synthpatch.io/synth/moog-dfam-53d6fb"
-              class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-none font-mono font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring bg-primary text-primary-foreground hover:bg-accent hover:text-foreground h-8 px-3 text-xs"
-              data-umami-event="hero-synth-new-patch"
-            >
-              <svg class="h-4 w-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
-              Use as a new patch
-            </button>
-          </div>
-        </div>
-
+      <!-- Interactive Moog DFAM: the app's patch embed (app.synthpatch.io/embed/<patch id>)
+           of a blank public DFAM patch. Nothing a visitor changes is saved. -->
+      <div class="max-w-6xl mx-auto">
         <div class="rounded-lg p-3 sm:p-6 border border-muted-foreground/25">
           <div class="relative">
-            <!-- Thumbnail until the live panel is ready -->
+            <!-- Thumbnail until the embed has loaded -->
             <img
-              data-synth-placeholder="hero-synth"
+              data-synth-placeholder
               src="https://ynttpfo19izvbk4z.public.blob.vercel-storage.com/synths/temp-1758302694994/assets/thumbnail/1758302700264_dfam-thumbnail-3620w.png"
               alt="Moog DFAM panel"
               class="absolute inset-0 w-full h-full object-contain"
             />
             <iframe
-              id="hero-synth"
-              data-synth-embed="/embed/synth/moog-dfam-53d6fb"
-              class="synth-embed relative opacity-0 transition-opacity duration-300"
+              src="https://app.synthpatch.io/embed/PASTE-BLANK-DFAM-PATCH-ID?mode=interactive&amp;bg=transparent"
+              class="synth-embed relative"
               style="aspect-ratio: 3620 / 1640;"
               title="Interactive Moog DFAM"
             ></iframe>
@@ -425,39 +394,103 @@
           </div>
       </div>
 
-      <p class="text-center text-signal-orange font-medium text-sm md:text-base mb-4 md:mb-6">
-        &darr; Change a control and watch the Patch Data update &darr;
-      </p>
-
-      <!-- Live Moog DFAM with a saved patch and the app's Patch Data panel -->
-      <div class="space-y-3">
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-          <p class="text-sm text-muted-foreground">
-            Showing <a href="https://app.synthpatch.io/share/288a2304-8402-4a7b-9ba7-0d36a2dff58a" class="font-medium text-foreground hover:underline" data-umami-event="data-demo-patch-page">Solid 4/4 Kick &amp; Offbeat Hats</a> by mylarmelodies on the Moog DFAM
-          </p>
-          <div class="flex gap-2 shrink-0">
-            <button
-              type="button"
-              data-synth-reset="data-synth"
-              class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-none font-mono font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-primary-foreground h-8 px-3 text-xs"
-              data-umami-event="data-demo-reset"
-            >
-              <svg class="h-4 w-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
-              Reset
-            </button>
-          </div>
+      <!-- A saved DFAM patch (the app's patch embed in static mode) beside its patch
+           data, laid out like the app's Patch Data panel. The JSON is a copy of what
+           the app shows for this patch; it doesn't change. -->
+      <div class="grid gap-6 lg:grid-cols-[7fr_3fr]">
+        <div class="rounded-lg p-3 sm:p-6 border border-muted-foreground/25">
+          <iframe
+            src="https://app.synthpatch.io/embed/288a2304-8402-4a7b-9ba7-0d36a2dff58a?mode=static&amp;bg=transparent"
+            class="synth-embed"
+            style="aspect-ratio: 3620 / 1640;"
+            title="Moog DFAM patch: Solid 4/4 Kick &amp; Offbeat Hats"
+            loading="lazy"
+          ></iframe>
         </div>
 
-        <div class="rounded-lg p-3 sm:p-6 border border-muted-foreground/25">
-          <div class="relative">
-            <iframe
-              id="data-synth"
-              data-synth-embed="/embed/synth/moog-dfam-53d6fb?patch=288a2304-8402-4a7b-9ba7-0d36a2dff58a&amp;panel=1"
-              class="synth-embed relative opacity-0 transition-opacity duration-300"
-              style="aspect-ratio: 3.15 / 1;"
-              title="Interactive Moog DFAM with its patch data"
-              loading="lazy"
-            ></iframe>
+        <div class="relative min-h-[20rem]">
+          <div class="lg:absolute lg:inset-0 flex flex-col gap-4 rounded-md border border-solid border-muted-foreground/25 bg-background shadow-sm px-3 sm:px-6 py-3 sm:py-6">
+            <span class="text-base sm:text-lg font-semibold text-primary">Patch Data</span>
+            <pre class="flex-1 min-h-0 max-h-80 lg:max-h-none overflow-auto w-full font-mono text-xs sm:text-sm text-foreground bg-muted/30 p-3 sm:p-4 whitespace-pre-wrap break-words">{
+  "format": "patchmd/1",
+  "patch": {
+    "name": "Solid 4/4 Kick &amp; Offbeat Hats",
+    "created_with": "Synth Patch",
+    "created_at": "2025-09-19T20:51:20.219Z",
+    "updated_at": "2025-09-19T20:51:20.219Z",
+    "created_by": "mylarmelodies",
+    "notes": "- Switch VCF to HP to perform drops.\n- Raise Velocity Steps 4 &amp; 8 for 'Roller' vibe.\n- Raise cutoff for more noise.\n- Set VCO2 to Square wave for aggro kick.\n\nAs used in this video and mentioned at the end: https://www.youtube.com/watch?v=GnyxBTeg5xA",
+    "is_public": true
+  },
+  "synthesizer": "moog-dfam-53d6fb",
+  "controls": {
+    "knobs": {
+      "Tempo": 0.9006,
+      "Cutoff": 0.5132,
+      "Volume": 0.7302,
+      "Resonance": 0,
+      "VCA Decay": 0.4222,
+      "VCF Decay": 0.717,
+      "VCO Decay": 0.2003,
+      "Seq 1 Pitch": 0,
+      "Seq 2 Pitch": 0,
+      "Seq 3 Pitch": 0.6165,
+      "Seq 4 Pitch": 0,
+      "Seq 5 Pitch": 0,
+      "Seq 6 Pitch": 0,
+      "Seq 7 Pitch": 0.6774,
+      "Seq 8 Pitch": 0,
+      "VCO 1 Level": 1,
+      "VCO 2 Level": 0,
+      "1-2 FM Amount": 0,
+      "VCF EG Amount": 0.5536,
+      "Seq 1 Velocity": 1,
+      "Seq 2 Velocity": 0.0811,
+      "Seq 3 Velocity": 0.3208,
+      "Seq 4 Velocity": 0,
+      "Seq 5 Velocity": 1,
+      "Seq 6 Velocity": 0,
+      "Seq 7 Velocity": 0.2519,
+      "Seq 8 Velocity": 0,
+      "Noise / VCF Mod": 0.3154,
+      "VCO 1 EG Amount": 0.7904,
+      "VCO 1 Frequency": 0.3796,
+      "VCO 2 EG Amount": 0.5986,
+      "VCO 2 Frequency": 0.352,
+      "Noise / EXT Level": 0.2698
+    },
+    "toggles": {
+      "VCF": "Low Pass",
+      "VCA EG": "Fast",
+      "Hard Sync": "On",
+      "VCO 1 Wave": "Triangle",
+      "VCO 2 Wave": "Triangle",
+      "Seq Pitch Mod": "Off"
+    },
+    "leds": {
+      "Seq 1": false,
+      "Seq 2": false,
+      "Seq 3": true,
+      "Seq 4": false,
+      "Seq 5": false,
+      "Seq 6": true,
+      "Seq 7": false,
+      "Seq 8": false,
+      "Run / Stop": false
+    },
+    "buttons": {
+      "Advance": false,
+      "Trigger": false,
+      "Run / Stop": false
+    }
+  },
+  "cables": [
+    {
+      "from": "Pitch",
+      "to": "Noise Level"
+    }
+  ]
+}</pre>
           </div>
         </div>
       </div>

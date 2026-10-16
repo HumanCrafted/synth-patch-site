@@ -1,18 +1,14 @@
 // Shared behavior for every page: theme toggle, cookie banner, mobile nav, and the
-// live synth embeds. Theme and cookie-banner answers are shared with the app
-// (app.synthpatch.io) through cookies on the parent domain; see the app's
-// src/lib/sharedPrefs.ts, which uses the same names and values.
+// synth embed placeholders. The cookie-banner answer is shared with the app
+// (app.synthpatch.io) through a cookie on the parent domain; see the app's
+// src/lib/sharedPrefs.ts, which uses the same name and values.
 (function () {
   var CONSENT_COOKIE = 'synthpatch-consent';
-  var THEME_COOKIE = 'synthpatch-theme';
   var LEGACY_CONSENT_KEY = 'synthpatch-cookie-consent';
   var THEME_KEY = 'synth-patch-theme';
   var MAX_AGE_SECONDS = 365 * 24 * 60 * 60;
 
-  // Local builds of the site talk to a local app (npm run dev in synth-patch-ui)
   var host = window.location.hostname;
-  var isLocal = host === 'localhost' || host === '127.0.0.1';
-  var APP_URL = isLocal ? 'http://localhost:3000' : 'https://app.synthpatch.io';
 
   function readCookie(name) {
     var match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
@@ -44,7 +40,7 @@
   var systemDark = window.matchMedia('(prefers-color-scheme: dark)');
 
   function storedTheme() {
-    var theme = readCookie(THEME_COOKIE) || readStorage(THEME_KEY);
+    var theme = readStorage(THEME_KEY);
     return THEMES.indexOf(theme) === -1 ? 'system' : theme;
   }
 
@@ -72,8 +68,6 @@
         icon.classList.toggle('hidden', !show);
       });
     });
-
-    postToEmbeds({ type: 'synthpatch:theme', theme: theme });
   }
 
   systemDark.addEventListener('change', function () {
@@ -83,7 +77,6 @@
   document.querySelectorAll('[data-theme-toggle]').forEach(function (button) {
     button.addEventListener('click', function () {
       theme = nextTheme();
-      writeCookie(THEME_COOKIE, theme);
       writeStorage(THEME_KEY, theme);
       applyTheme();
     });
@@ -129,69 +122,12 @@
     });
   })();
 
-  // ------------------------------------------------------- Live synth embeds
-  // <iframe data-synth-embed="/embed/synth/<slug>?..."> loads the app's synth panel.
-  // The embed reports its height and readiness; buttons with data-synth-reset or
-  // data-synth-new-patch (set to the iframe's id) drive it.
+  // ------------------------------------------------------------ Synth embeds
+  // Hide the thumbnail shown behind an embed once the embed has loaded
 
-  var embeds = Array.prototype.slice.call(document.querySelectorAll('iframe[data-synth-embed]'));
-  var newPatchFallback = null; // timer for the "Use as a new patch" fallback
-
-  function postToEmbeds(message) {
-    embeds.forEach(function (frame) {
-      if (frame.contentWindow) frame.contentWindow.postMessage(message, APP_URL);
-    });
-  }
-
-  embeds.forEach(function (frame) {
-    frame.src = APP_URL + frame.getAttribute('data-synth-embed');
-  });
-
-  window.addEventListener('message', function (event) {
-    if (event.origin !== APP_URL) return;
-    var frame = embeds.filter(function (f) { return f.contentWindow === event.source; })[0];
-    var data = event.data || {};
-    if (!frame) return;
-
-    if (data.type === 'synthpatch:height' && data.height > 0) {
-      frame.style.aspectRatio = 'auto';
-      frame.style.height = data.height + 'px';
-    } else if (data.type === 'synthpatch:ready') {
-      frame.contentWindow.postMessage({ type: 'synthpatch:theme', theme: theme }, APP_URL);
-      frame.classList.remove('opacity-0');
-      document.querySelectorAll('[data-synth-placeholder="' + frame.id + '"]').forEach(function (placeholder) {
-        placeholder.remove();
-      });
-    } else if (data.type === 'synthpatch:open-url' && typeof data.url === 'string' && data.url.indexOf(APP_URL + '/') === 0) {
-      clearTimeout(newPatchFallback);
-      window.location.href = data.url;
-    }
-  });
-
-  document.querySelectorAll('[data-synth-reset]').forEach(function (button) {
-    button.addEventListener('click', function () {
-      var frame = document.getElementById(button.getAttribute('data-synth-reset'));
-      if (frame && frame.contentWindow) frame.contentWindow.postMessage({ type: 'synthpatch:reset' }, APP_URL);
-    });
-  });
-
-  // Hands the panel's current state to the app's editor. The embed stashes it in
-  // the app's storage and replies with the editor URL; if it doesn't answer, fall
-  // back to the synth's page on the app.
-  document.querySelectorAll('[data-synth-new-patch]').forEach(function (button) {
-    button.addEventListener('click', function () {
-      var frame = document.getElementById(button.getAttribute('data-synth-new-patch'));
-      var fallback = button.getAttribute('data-fallback-url');
-      if (!frame || !frame.contentWindow) {
-        if (fallback) window.location.href = fallback;
-        return;
-      }
-      frame.contentWindow.postMessage({ type: 'synthpatch:use-as-new-patch' }, APP_URL);
-      if (fallback) {
-        clearTimeout(newPatchFallback);
-        newPatchFallback = setTimeout(function () { window.location.href = fallback; }, 2000);
-      }
-    });
+  document.querySelectorAll('[data-synth-placeholder]').forEach(function (placeholder) {
+    var frame = placeholder.parentElement.querySelector('iframe');
+    if (frame) frame.addEventListener('load', function () { placeholder.remove(); });
   });
 
   applyTheme();

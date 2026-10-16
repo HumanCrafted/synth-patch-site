@@ -60,8 +60,8 @@ body {
   color: hsl(var(--card-foreground));
 }
 
-/* Live synth embeds: sized by the embed's own height messages (assets/site.js);
-   the aspect ratio is only a first guess so the page doesn't jump on load */
+/* App patch embeds (app.synthpatch.io/embed/<patch id>), sized by an inline
+   aspect-ratio like the app's own embed code */
 .synth-embed {
   display: block;
   width: 100%;

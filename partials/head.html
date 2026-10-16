@@ -1,5 +1,5 @@
-<!-- Before first paint: apply the theme (shared with the app through a cookie) so
-       dark mode doesn't flash, and honor a cookie-banner answer given on the app
+<!-- Before first paint: apply the saved theme so dark mode doesn't flash, and
+       honor a cookie-banner answer given on the app (shared through a cookie)
        before Umami loads. assets/site.js does the rest. -->
   <script>
     (function () {
@@ -8,7 +8,7 @@
           var match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
           return match ? decodeURIComponent(match[1]) : null;
         };
-        var theme = read('synthpatch-theme') || localStorage.getItem('synth-patch-theme') || 'system';
+        var theme = localStorage.getItem('synth-patch-theme') || 'system';
         var dark = theme === 'dark' || (theme !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
         document.documentElement.classList.add(dark ? 'dark' : 'light');
 

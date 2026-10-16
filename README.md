@@ -34,19 +34,17 @@ each page between `<!-- PARTIAL:name -->` markers by `npm run partials` (also th
 first step of `npm run build`). Edit the partial, run the script, commit the pages.
 
 The header mirrors the app's (synth-patch-ui `SimpleLayout.tsx`), and the design
-tokens in `assets/site.css` mirror the app's `globals.css`. The theme and the
-cookie-banner answer are shared with the app through cookies on `.synthpatch.io`
-(`synthpatch-theme`, `synthpatch-consent`), so a choice made on either site
-carries over.
+tokens in `assets/site.css` mirror the app's `globals.css`. The cookie-banner
+answer is shared with the app through a cookie on `.synthpatch.io`
+(`synthpatch-consent`), so a visitor only answers it once.
 
-## Live synths
+## Synth embeds
 
-The homepage synths are the app's own panel, framed from
-`app.synthpatch.io/embed/synth/<slug>` (`?patch=<public patch id>`, `?panel=1`
-for the Patch Data panel). `assets/site.js` sizes the frames and drives Reset and
-"Use as a new patch" over postMessage. On localhost the frames load from
-`http://localhost:3000`, so run the app (`npm run dev` in synth-patch-ui) alongside
-a static server for the site (e.g. `npx serve -l 8080 .`).
+The homepage synths use the app's patch embed
+(`https://app.synthpatch.io/embed/<public patch id>?mode=interactive|static&bg=transparent`),
+the same one the app's Share → Embed dialog generates. The hero embeds a blank
+public DFAM patch; "Your Patches, Precisely Stored" embeds a saved patch in static
+mode next to a copy of its Patch Data JSON.
 
 ## Technologies
 
