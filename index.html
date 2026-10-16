@@ -273,7 +273,7 @@
           </div>
           <h3 class="text-lg md:text-xl font-semibold mb-2 md:mb-3">Interactive Hardware Interface</h3>
           <p class="text-sm md:text-base text-muted-foreground">
-            Turn virtual knobs, connect patch cables, and adjust every control exactly like your physical synth. No more guessing.
+            Turn virtual knobs, connect patch cables, and adjust every control exactly like your physical synth. Color-code your cables to keep busy patches readable.
           </p>
         </div>
 
@@ -281,12 +281,12 @@
         <div class="card rounded-2xl p-6 md:p-8 text-center">
           <div class="w-10 h-10 md:w-12 md:h-12 bg-signal-orange rounded-lg flex items-center justify-center mx-auto mb-3 md:mb-4">
             <svg class="w-5 h-5 md:w-6 md:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path>
             </svg>
           </div>
-          <h3 class="text-lg md:text-xl font-semibold mb-2 md:mb-3">Organize & Share</h3>
+          <h3 class="text-lg md:text-xl font-semibold mb-2 md:mb-3">Organize &amp; Share</h3>
           <p class="text-sm md:text-base text-muted-foreground mb-3 md:mb-4">
-            Create collections, tag your sounds, and share patches with the community. Free users can even earn bonus patches by sharing publicly!
+            Star, search, and sort your patches, and share them with the community. Free users can even earn bonus patches by sharing publicly!
           </p>
           <a
             href="https://app.synthpatch.io/share/2cbb33ed-3e52-4b74-9be7-4c7817e26ff5"
@@ -307,23 +307,59 @@
           </div>
           <h3 class="text-lg md:text-xl font-semibold mb-2 md:mb-3">Audio Clips</h3>
           <p class="text-sm md:text-base text-muted-foreground">
-            Upload audio samples to hear exactly what each patch sounds like.  No paper patch note could ever do that.
+            Upload audio samples to hear exactly what each patch sounds like. No paper patch note could ever do that.
           </p>
         </div>
-      </div>
 
-      <!-- Second row - centered -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mt-6 md:mt-8 max-w-2xl mx-auto">
         <!-- Community Patches -->
         <div class="card rounded-2xl p-6 md:p-8 text-center">
-          <div class="w-10 h-10 md:w-12 md:h-12 bg-purple-600 rounded-lg flex items-center justify-center mx-auto mb-3 md:mb-4">
-            <svg class="w-5 h-5 md:w-6 md:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="w-10 h-10 md:w-12 md:h-12 bg-warning-yellow rounded-lg flex items-center justify-center mx-auto mb-3 md:mb-4">
+            <svg class="w-5 h-5 md:w-6 md:h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
             </svg>
           </div>
           <h3 class="text-lg md:text-xl font-semibold mb-2 md:mb-3">Community Patches</h3>
           <p class="text-sm md:text-base text-muted-foreground">
-            Browse patches shared by other users for inspiration. Discover new sounds and see how others use your favorite synths.
+            Browse patches shared by other users for inspiration, then duplicate any of them into your own library to make it your own.
+          </p>
+        </div>
+
+        <!-- Patch Notes -->
+        <div class="card rounded-2xl p-6 md:p-8 text-center">
+          <div class="w-10 h-10 md:w-12 md:h-12 bg-control-blue rounded-lg flex items-center justify-center mx-auto mb-3 md:mb-4">
+            <svg class="w-5 h-5 md:w-6 md:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg md:text-xl font-semibold mb-2 md:mb-3">Patch Notes</h3>
+          <p class="text-sm md:text-base text-muted-foreground">
+            Keep rich-text notes with every patch: performance tips, the settings that matter, and links to videos or tutorials.
+          </p>
+        </div>
+
+        <!-- Print-ready Patch Sheets -->
+        <div class="card rounded-2xl p-6 md:p-8 text-center">
+          <div class="w-10 h-10 md:w-12 md:h-12 bg-signal-orange rounded-lg flex items-center justify-center mx-auto mb-3 md:mb-4">
+            <svg class="w-5 h-5 md:w-6 md:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg md:text-xl font-semibold mb-2 md:mb-3">Print-ready Patch Sheets</h3>
+          <p class="text-sm md:text-base text-muted-foreground">
+            Print any shared patch or save it as a PDF. Clean, single-page patch sheets for your studio binder or gig bag.
+          </p>
+        </div>
+
+        <!-- Works on Tablets -->
+        <div class="card rounded-2xl p-6 md:p-8 text-center">
+          <div class="w-10 h-10 md:w-12 md:h-12 bg-patch-green rounded-lg flex items-center justify-center mx-auto mb-3 md:mb-4">
+            <svg class="w-5 h-5 md:w-6 md:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg md:text-xl font-semibold mb-2 md:mb-3">Works on Tablets</h3>
+          <p class="text-sm md:text-base text-muted-foreground">
+            Patch on an iPad or tablet right next to your synth. Controls are built for touch, and a long-press does what a right-click does.
           </p>
         </div>
 
@@ -334,12 +370,28 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
             </svg>
           </div>
-          <div class="flex items-center justify-center gap-2 mb-2 md:mb-3">
+          <div class="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 mb-2 md:mb-3">
             <h3 class="text-lg md:text-xl font-semibold">Private Link Sharing</h3>
             <span class="bg-foreground text-background text-xs font-semibold px-2 py-0.5 rounded">PRO</span>
           </div>
           <p class="text-sm md:text-base text-muted-foreground">
             Create unique private links to share patches anonymously. Perfect for subscribers, Patreon members, or creating patch books to share or sell.
+          </p>
+        </div>
+
+        <!-- Embeds -->
+        <div class="card rounded-2xl p-6 md:p-8 text-center">
+          <div class="w-10 h-10 md:w-12 md:h-12 bg-foreground rounded-lg flex items-center justify-center mx-auto mb-3 md:mb-4">
+            <svg class="w-5 h-5 md:w-6 md:h-6 text-background" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+            </svg>
+          </div>
+          <div class="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 mb-2 md:mb-3">
+            <h3 class="text-lg md:text-xl font-semibold">Embed Anywhere</h3>
+            <span class="bg-foreground text-background text-xs font-semibold px-2 py-0.5 rounded">PRO</span>
+          </div>
+          <p class="text-sm md:text-base text-muted-foreground">
+            Put interactive or static patches on your blog, course, or Patreon. Paste a patch link into Notion or Medium and it embeds itself.
           </p>
         </div>
       </div>
