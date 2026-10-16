@@ -3,7 +3,8 @@
   "version": "2.0.0",
   "description": "Synth Patch brand site - static HTML with automated markdown conversion",
   "scripts": {
-    "build": "node scripts/convert-markdown.js && node scripts/update-synths.js",
+    "build": "node scripts/apply-partials.js && node scripts/convert-markdown.js && node scripts/update-synths.js",
+    "partials": "node scripts/apply-partials.js",
     "update-synths": "node scripts/update-synths.js"
   },
   "devDependencies": {

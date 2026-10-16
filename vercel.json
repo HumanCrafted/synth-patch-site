@@ -2,5 +2,12 @@
   "buildCommand": "npm run build",
   "outputDirectory": ".",
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/app-demo",
+      "destination": "/",
+      "permanent": true
+    }
+  ]
 }
