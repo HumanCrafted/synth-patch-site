@@ -1,0 +1,80 @@
+<!-- Header: same markup and classes as the app's header (synth-patch-ui
+       src/components/layout/SimpleLayout.tsx) as an anonymous visitor sees it -->
+  <header class="border-b-2 border-border bg-background">
+    <div class="relative flex h-16 items-center px-6">
+      <!-- Logo -->
+      <a href="/" class="flex items-center hover:opacity-80 transition-opacity" aria-label="Synth Patch home">
+        <svg
+          width="32"
+          height="44"
+          viewBox="0 0 102 142"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-8 w-auto"
+        >
+          <path
+            d="M9.7251 132.074C22.5037 128.436 38.8648 123.22 38.8648 111.485C38.8648 93.7523 9.72552 99.8561 9.72534 80.4442C9.7251 54.2307 91.8187 54.9047 91.8187 27.2561C91.8187 4.06187 58.9147 3.34823 58.9147 27.2561C58.9147 46.3824 58.9147 72.4749 58.9147 80.4442"
+            stroke="currentColor"
+            stroke-width="16"
+            stroke-linecap="round"
+            class="text-foreground"
+          />
+        </svg>
+      </a>
+
+      <!-- Center Navigation - absolutely centered on the page -->
+      <nav class="absolute left-1/2 transform -translate-x-1/2 hidden md:flex items-center gap-6">
+        <a href="/pricing" class="text-sm font-medium transition-colors hover:text-foreground {{nav:pricing}}" data-umami-event="header-pricing">Pricing</a>
+        <a href="/contact" class="text-sm font-medium transition-colors hover:text-foreground {{nav:contact}}" data-umami-event="header-contact">Contact</a>
+      </nav>
+
+      <!-- Right Side -->
+      <div class="ml-auto flex items-center gap-3">
+        <!-- Mobile menu (the center links don't fit next to the account buttons) -->
+        <button
+          id="mobile-nav-button"
+          type="button"
+          class="md:hidden inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-none font-mono transition-all duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring bg-transparent text-foreground hover:bg-muted hover:text-foreground text-xs font-medium h-8 w-8 p-0"
+          aria-label="Menu"
+          aria-controls="mobile-nav"
+          aria-expanded="false"
+        >
+          <svg data-icon="menu" class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16"/><path d="M4 18h16"/><path d="M4 6h16"/></svg>
+          <svg data-icon="close" class="hidden h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+
+        <!-- Theme Toggle -->
+        <button
+          type="button"
+          data-theme-toggle
+          class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-none font-mono transition-all duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring bg-transparent text-foreground hover:bg-muted hover:text-foreground text-xs font-medium h-8 w-8 p-0"
+          title="Switch to light mode"
+          aria-label="Toggle theme"
+          data-umami-event="header-theme-toggle"
+        >
+          <svg data-theme-icon="light" class="hidden h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+          <svg data-theme-icon="dark" class="hidden h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+          <svg data-theme-icon="system" class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v2"/><path d="M13 8.129A4 4 0 0 1 15.873 11"/><path d="m19 5-1.256 1.256"/><path d="M20 12h2"/><path d="M9 8a5 5 0 1 0 7 7 7 7 0 1 1-7-7"/></svg>
+        </button>
+
+        <a
+          href="https://app.synthpatch.io/sign-in"
+          class="text-sm font-medium text-foreground hover:text-foreground/80 transition-colors"
+          data-umami-event="header-login"
+        >Log in</a>
+        <a
+          href="https://app.synthpatch.io/sign-up"
+          class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-none font-mono transition-all duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring hover:text-foreground h-10 px-6 text-sm font-medium bg-foreground text-background hover:bg-foreground/90"
+          data-umami-event="header-sign-up"
+        >Sign Up</a>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <nav id="mobile-nav" class="hidden md:hidden border-t border-border bg-background">
+      <div class="flex flex-col px-6 py-2">
+        <a href="/pricing" class="py-3 text-sm font-medium transition-colors hover:text-foreground {{nav:pricing}}" data-umami-event="mobile-header-pricing">Pricing</a>
+        <a href="/contact" class="py-3 text-sm font-medium transition-colors hover:text-foreground {{nav:contact}}" data-umami-event="mobile-header-contact">Contact</a>
+      </div>
+    </nav>
+  </header>

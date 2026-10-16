@@ -27,14 +27,40 @@
   <link rel="apple-touch-icon" sizes="180x180" href="brand-assets/Favicon/SynthPatch-180x180.png">
   <link rel="icon" type="image/png" sizes="192x192" href="brand-assets/Favicon/SynthPatch-192x192.png">
 
+  <!-- PARTIAL:head -->
+  <!-- Before first paint: apply the saved theme so dark mode doesn't flash, and
+       honor a cookie-banner answer given on the app (shared through a cookie)
+       before Umami loads. assets/site.js does the rest. -->
+  <script>
+    (function () {
+      try {
+        var read = function (name) {
+          var match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
+          return match ? decodeURIComponent(match[1]) : null;
+        };
+        var theme = localStorage.getItem('synth-patch-theme') || 'system';
+        var dark = theme === 'dark' || (theme !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.classList.add(dark ? 'dark' : 'light');
+
+        var consent = read('synthpatch-consent') || localStorage.getItem('synthpatch-cookie-consent');
+        if (consent === 'declined') localStorage.setItem('umami.disabled', '1');
+        else if (consent === 'accepted') localStorage.removeItem('umami.disabled');
+      } catch (e) {}
+    })();
+  </script>
+
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Tailwind CSS -->
+  <!-- Tailwind CSS, configured like the app -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/assets/tailwind-config.js"></script>
+  <link rel="stylesheet" href="/assets/site.css">
+  <script defer src="/assets/site.js"></script>
 
   <!-- Umami Analytics -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="80ade1d2-80ab-4ebb-8190-2ae0fdfe8b54"></script>
+  <!-- /PARTIAL:head -->
 
   <!-- JSON-LD Structured Data -->
   <script type="application/ld+json">
@@ -58,81 +84,19 @@
     }
   }
   </script>
-
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            'sans': ['Space Grotesk', 'system-ui', 'sans-serif'],
-            'mono': ['IBM Plex Mono', 'monospace'],
-          },
-          colors: {
-            'signal-orange': '#FF6B35',
-            'control-blue': '#0055A4',
-            'patch-green': '#00A878',
-            'warning-yellow': '#FFB700',
-          }
-        }
-      }
-    }
-  </script>
-
-  <style>
-    :root {
-      --background: 0 0% 98%;
-      --foreground: 0 0% 0%;
-      --card: 0 0% 100%;
-      --card-foreground: 0 0% 0%;
-      --muted: 0 0% 90%;
-      --muted-foreground: 0 0% 48%;
-      --border: 0 0% 90%;
-      --signal-orange: #FF6B35;
-    }
-
-    .dark {
-      --background: 0 0% 4%;
-      --foreground: 0 0% 98%;
-      --card: 0 0% 8%;
-      --card-foreground: 0 0% 98%;
-      --muted: 0 0% 10%;
-      --muted-foreground: 0 0% 54%;
-      --border: 0 0% 10%;
-    }
-
-    body {
-      background: hsl(var(--background));
-      color: hsl(var(--foreground));
-    }
-
-    .card {
-      background: hsl(var(--card));
-      color: hsl(var(--card-foreground));
-    }
-
-    .text-muted-foreground {
-      color: hsl(var(--muted-foreground));
-    }
-
-    .border {
-      border-color: hsl(var(--border));
-    }
-
-    .bg-muted {
-      background: hsl(var(--muted));
-    }
-  </style>
 </head>
 
 <body class="font-sans min-h-full flex flex-col">
-  <!-- Cookie Consent Banner -->
+  <!-- PARTIAL:cookie-banner -->
+  <!-- Cookie Consent Banner: same as the app's. The answer is shared with the app,
+       so a visitor only sees it once across both sites (assets/site.js). -->
   <div id="cookie-banner" class="hidden fixed bottom-0 left-0 right-0 bg-black text-white py-4 md:py-6 z-50 border-t-2 border-gray-700">
     <div class="max-w-7xl mx-auto px-4 md:px-6">
       <div class="flex flex-col md:flex-row items-center justify-between gap-4">
         <div class="text-center md:text-left">
           <p class="text-sm md:text-base text-gray-300">
-            We use privacy-focused analytics to improve your experience. No personal data is collected.
-            <a href="/privacy-policy.html" class="text-white underline hover:text-gray-300 transition-colors" data-umami-event="cookie-banner-privacy-link">Learn more</a>
+            We use privacy-focused analytics to understand how people use Synth Patch. No personal data is collected by our analytics tool.
+            <a href="/privacy-policy" class="text-white underline hover:text-gray-300 transition-colors" data-umami-event="cookie-banner-privacy-link">Learn more</a>
           </p>
         </div>
         <div class="flex gap-3 flex-shrink-0">
@@ -154,65 +118,90 @@
       </div>
     </div>
   </div>
+  <!-- /PARTIAL:cookie-banner -->
 
-  <!-- Header -->
-  <header class="border-b-2 border-gray-200">
-    <div class="max-w-7xl mx-auto px-6 py-4">
-      <div class="flex items-center justify-between">
-        <!-- Logo -->
-        <a href="/" class="flex items-center">
-          <svg
-            width="32"
-            height="44"
-            viewBox="0 0 102 142"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-8 w-auto"
-          >
-            <path
-              d="M9.7251 132.074C22.5037 128.436 38.8648 123.22 38.8648 111.485C38.8648 93.7523 9.72552 99.8561 9.72534 80.4442C9.7251 54.2307 91.8187 54.9047 91.8187 27.2561C91.8187 4.06187 58.9147 3.34823 58.9147 27.2561C58.9147 46.3824 58.9147 72.4749 58.9147 80.4442"
-              stroke="currentColor"
-              stroke-width="16"
-              stroke-linecap="round"
-              class="text-black"
-            />
-          </svg>
-        </a>
+  <!-- PARTIAL:header -->
+  <!-- Header: same markup and classes as the app's header (synth-patch-ui
+       src/components/layout/SimpleLayout.tsx) as an anonymous visitor sees it -->
+  <header class="border-b-2 border-border bg-background">
+    <div class="relative flex h-16 items-center px-6">
+      <!-- Logo -->
+      <a href="/" class="flex items-center hover:opacity-80 transition-opacity" aria-label="Synth Patch home">
+        <svg
+          width="32"
+          height="44"
+          viewBox="0 0 102 142"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-8 w-auto"
+        >
+          <path
+            d="M9.7251 132.074C22.5037 128.436 38.8648 123.22 38.8648 111.485C38.8648 93.7523 9.72552 99.8561 9.72534 80.4442C9.7251 54.2307 91.8187 54.9047 91.8187 27.2561C91.8187 4.06187 58.9147 3.34823 58.9147 27.2561C58.9147 46.3824 58.9147 72.4749 58.9147 80.4442"
+            stroke="currentColor"
+            stroke-width="16"
+            stroke-linecap="round"
+            class="text-foreground"
+          />
+        </svg>
+      </a>
 
-        <!-- Navigation Links -->
-        <div class="flex items-center gap-6">
-          <a
-            href="/pricing.html"
-            class="text-gray-600 hover:text-black font-medium transition-colors"
-            data-umami-event="header-pricing"
-          >
-            Pricing
-          </a>
-          <a
-            href="/contact.html"
-            class="text-black font-medium"
-          >
-            Contact
-          </a>
-          <a
-            href="https://app.synthpatch.io"
-            class="text-gray-600 hover:text-black font-medium transition-colors"
-            data-umami-event="header-login"
-          >
-            Login
-          </a>
-          <!-- Get Started CTA -->
-          <a
-            href="https://app.synthpatch.io"
-            class="bg-black text-white hover:bg-gray-800 px-6 py-2 rounded-lg font-medium transition-colors"
-            data-umami-event="header-get-started"
-          >
-            Try It Out
-          </a>
-        </div>
+      <!-- Center Navigation - absolutely centered on the page -->
+      <nav class="absolute left-1/2 transform -translate-x-1/2 hidden md:flex items-center gap-6">
+        <a href="/pricing" class="text-sm font-medium transition-colors hover:text-foreground text-muted-foreground" data-umami-event="header-pricing">Pricing</a>
+        <a href="/contact" class="text-sm font-medium transition-colors hover:text-foreground text-foreground" data-umami-event="header-contact">Contact</a>
+      </nav>
+
+      <!-- Right Side -->
+      <div class="ml-auto flex items-center gap-3">
+        <!-- Mobile menu (the center links don't fit next to the account buttons) -->
+        <button
+          id="mobile-nav-button"
+          type="button"
+          class="md:hidden inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-none font-mono transition-all duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring bg-transparent text-foreground hover:bg-muted hover:text-foreground text-xs font-medium h-8 w-8 p-0"
+          aria-label="Menu"
+          aria-controls="mobile-nav"
+          aria-expanded="false"
+        >
+          <svg data-icon="menu" class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16"/><path d="M4 18h16"/><path d="M4 6h16"/></svg>
+          <svg data-icon="close" class="hidden h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+
+        <!-- Theme Toggle -->
+        <button
+          type="button"
+          data-theme-toggle
+          class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-none font-mono transition-all duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring bg-transparent text-foreground hover:bg-muted hover:text-foreground text-xs font-medium h-8 w-8 p-0"
+          title="Switch to light mode"
+          aria-label="Toggle theme"
+          data-umami-event="header-theme-toggle"
+        >
+          <svg data-theme-icon="light" class="hidden h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+          <svg data-theme-icon="dark" class="hidden h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+          <svg data-theme-icon="system" class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v2"/><path d="M13 8.129A4 4 0 0 1 15.873 11"/><path d="m19 5-1.256 1.256"/><path d="M20 12h2"/><path d="M9 8a5 5 0 1 0 7 7 7 7 0 1 1-7-7"/></svg>
+        </button>
+
+        <a
+          href="https://app.synthpatch.io/sign-in"
+          class="text-sm font-medium text-foreground hover:text-foreground/80 transition-colors"
+          data-umami-event="header-login"
+        >Log in</a>
+        <a
+          href="https://app.synthpatch.io/sign-up"
+          class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-none font-mono transition-all duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring hover:text-foreground h-10 px-6 text-sm font-medium bg-foreground text-background hover:bg-foreground/90"
+          data-umami-event="header-sign-up"
+        >Sign Up</a>
       </div>
     </div>
+
+    <!-- Mobile Navigation -->
+    <nav id="mobile-nav" class="hidden md:hidden border-t border-border bg-background">
+      <div class="flex flex-col px-6 py-2">
+        <a href="/pricing" class="py-3 text-sm font-medium transition-colors hover:text-foreground text-muted-foreground" data-umami-event="mobile-header-pricing">Pricing</a>
+        <a href="/contact" class="py-3 text-sm font-medium transition-colors hover:text-foreground text-foreground" data-umami-event="mobile-header-contact">Contact</a>
+      </div>
+    </nav>
   </header>
+  <!-- /PARTIAL:header -->
 
   <!-- Main Content -->
   <main class="flex-grow flex items-center justify-center py-20">
@@ -241,7 +230,7 @@
               name="name"
               id="name"
               required
-              class="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-black transition-colors"
+              class="w-full px-4 py-2 border-2 border-border bg-background text-foreground placeholder:text-muted-foreground rounded-lg focus:outline-none focus:border-foreground transition-colors"
               placeholder="Your name"
             >
           </div>
@@ -256,7 +245,7 @@
               name="email"
               id="email"
               required
-              class="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-black transition-colors"
+              class="w-full px-4 py-2 border-2 border-border bg-background text-foreground placeholder:text-muted-foreground rounded-lg focus:outline-none focus:border-foreground transition-colors"
               placeholder="your@email.com"
             >
           </div>
@@ -271,7 +260,7 @@
               id="message"
               rows="6"
               required
-              class="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-black transition-colors resize-none"
+              class="w-full px-4 py-2 border-2 border-border bg-background text-foreground placeholder:text-muted-foreground rounded-lg focus:outline-none focus:border-foreground transition-colors resize-none"
               placeholder="Tell us what's on your mind..."
             ></textarea>
           </div>
@@ -282,7 +271,7 @@
           <!-- Submit Button -->
           <button
             type="submit"
-            class="w-full bg-black text-white hover:bg-gray-800 px-6 py-3 rounded-lg font-medium transition-colors"
+            class="w-full bg-foreground text-background hover:bg-foreground/90 px-6 py-3 rounded-lg font-medium transition-colors"
           >
             Send Message
           </button>
@@ -296,50 +285,15 @@
   </main>
 
   <!-- Footer -->
-  <footer class="bg-black text-white py-8">
+  <footer class="bg-black text-white py-8 dark:bg-background dark:border-t-2 dark:border-border">
     <div class="max-w-7xl mx-auto px-4 md:px-6 text-center text-xs md:text-sm text-gray-400">
       <div class="mb-4">
-        <a href="/terms-of-service.html" class="hover:text-white transition-colors" data-umami-event="footer-terms-of-service">Terms of Service</a>
+        <a href="/terms-of-service" class="hover:text-white transition-colors" data-umami-event="footer-terms-of-service">Terms of Service</a>
         <span class="mx-2">|</span>
-        <a href="/privacy-policy.html" class="hover:text-white transition-colors" data-umami-event="footer-privacy-policy">Privacy Policy</a>
+        <a href="/privacy-policy" class="hover:text-white transition-colors" data-umami-event="footer-privacy-policy">Privacy Policy</a>
       </div>
       <p>&copy; 2026 Synth Patch. Made with ❤️ by <a href="https://www.humancrafted.co?utm_source=synthpatch" class="hover:text-white transition-colors" data-umami-event="footer-human-crafted">human / crafted</a>.</p>
     </div>
   </footer>
-
-  <!-- Cookie Consent Script -->
-  <script>
-    (function() {
-      var banner = document.getElementById('cookie-banner');
-      var acceptButton = document.getElementById('cookie-accept');
-      var declineButton = document.getElementById('cookie-decline');
-      var CONSENT_KEY = 'synthpatch-cookie-consent';
-
-      // Check if user has already made a choice
-      var consent = localStorage.getItem(CONSENT_KEY);
-
-      if (!consent) {
-        // Show banner if no choice has been made
-        banner.classList.remove('hidden');
-      } else if (consent === 'declined') {
-        // If user declined, disable Umami
-        localStorage.setItem('umami.disabled', '1');
-      }
-
-      // Handle accept
-      acceptButton.addEventListener('click', function() {
-        localStorage.setItem(CONSENT_KEY, 'accepted');
-        localStorage.removeItem('umami.disabled');
-        banner.classList.add('hidden');
-      });
-
-      // Handle decline
-      declineButton.addEventListener('click', function() {
-        localStorage.setItem(CONSENT_KEY, 'declined');
-        localStorage.setItem('umami.disabled', '1');
-        banner.classList.add('hidden');
-      });
-    })();
-  </script>
 </body>
 </html>

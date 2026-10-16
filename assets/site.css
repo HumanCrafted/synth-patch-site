@@ -1,0 +1,70 @@
+/* Synth Patch design tokens, copied from the app (synth-patch-ui src/app/globals.css)
+   so the site and the app share one palette in light and dark mode. Keep in sync. */
+:root {
+  --background: 0 0% 98%;
+  --foreground: 0 0% 0%;
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 0%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 0%;
+  --primary: 0 0% 0%;
+  --primary-foreground: 0 0% 98%;
+  --secondary: 0 0% 90%;
+  --secondary-foreground: 0 0% 0%;
+  --muted: 0 0% 90%;
+  --muted-foreground: 0 0% 48%;
+  --accent: 17 100% 60%;
+  --accent-foreground: 0 0% 100%;
+  --destructive: 17 100% 60%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 0 0% 90%;
+  --input: 0 0% 100%;
+  --ring: 211 100% 32%;
+  --radius: 0.5rem;
+}
+
+.dark {
+  --background: 0 0% 4%;
+  --foreground: 0 0% 98%;
+  --card: 0 0% 8%;
+  --card-foreground: 0 0% 98%;
+  --popover: 0 0% 8%;
+  --popover-foreground: 0 0% 98%;
+  --primary: 0 0% 98%;
+  --primary-foreground: 0 0% 4%;
+  --secondary: 0 0% 10%;
+  --secondary-foreground: 0 0% 98%;
+  --muted: 0 0% 10%;
+  --muted-foreground: 0 0% 54%;
+  --accent: 17 100% 64%;
+  --accent-foreground: 0 0% 0%;
+  --destructive: 17 100% 64%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 0 0% 10%;
+  --input: 0 0% 8%;
+  --ring: 211 74% 56%;
+}
+
+*, ::before, ::after {
+  border-color: hsl(var(--border));
+}
+
+body {
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+}
+
+/* Feature and synth cards */
+.card {
+  background: hsl(var(--card));
+  color: hsl(var(--card-foreground));
+}
+
+/* App patch embeds (app.synthpatch.io/embed/<patch id>), sized by an inline
+   aspect-ratio like the app's own embed code */
+.synth-embed {
+  display: block;
+  width: 100%;
+  border: 0;
+  background: transparent;
+}

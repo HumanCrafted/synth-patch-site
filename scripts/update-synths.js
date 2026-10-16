@@ -30,7 +30,7 @@ function card(synth, extraClass = '') {
   const classes = `card rounded-2xl overflow-hidden block transition-shadow hover:shadow-lg${extraClass ? ` ${extraClass}` : ''}`;
   return `        <!-- ${escapeHtml(name)} -->
         <a href="${href}" class="${classes}" data-umami-event="synths-card" data-umami-event-synth="${escapeHtml(synth.slug)}">
-          <div class="bg-white p-4 flex items-center justify-center" style="height: 180px;">
+          <div class="bg-white dark:bg-muted/50 p-4 flex items-center justify-center" style="height: 180px;">
             <img
               src="${escapeHtml(synth.thumbnail_url)}"
               alt="${escapeHtml(name)}"

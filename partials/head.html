@@ -1,0 +1,32 @@
+<!-- Before first paint: apply the saved theme so dark mode doesn't flash, and
+       honor a cookie-banner answer given on the app (shared through a cookie)
+       before Umami loads. assets/site.js does the rest. -->
+  <script>
+    (function () {
+      try {
+        var read = function (name) {
+          var match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
+          return match ? decodeURIComponent(match[1]) : null;
+        };
+        var theme = localStorage.getItem('synth-patch-theme') || 'system';
+        var dark = theme === 'dark' || (theme !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.classList.add(dark ? 'dark' : 'light');
+
+        var consent = read('synthpatch-consent') || localStorage.getItem('synthpatch-cookie-consent');
+        if (consent === 'declined') localStorage.setItem('umami.disabled', '1');
+        else if (consent === 'accepted') localStorage.removeItem('umami.disabled');
+      } catch (e) {}
+    })();
+  </script>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS, configured like the app -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/assets/tailwind-config.js"></script>
+  <link rel="stylesheet" href="/assets/site.css">
+  <script defer src="/assets/site.js"></script>
+
+  <!-- Umami Analytics -->
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="80ade1d2-80ab-4ebb-8190-2ae0fdfe8b54"></script>
