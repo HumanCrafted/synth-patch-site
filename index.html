@@ -400,10 +400,10 @@
       <div class="grid gap-6 lg:grid-cols-[7fr_3fr]">
         <div class="rounded-lg p-3 sm:p-6 border border-muted-foreground/25">
           <iframe
-            src="https://app.synthpatch.io/embed/288a2304-8402-4a7b-9ba7-0d36a2dff58a?mode=static&amp;bg=transparent"
+            src="https://app.synthpatch.io/embed/20204e6e-43dd-4c39-87c5-123c91840f95?mode=static&amp;bg=transparent"
             class="synth-embed"
             style="aspect-ratio: 3620 / 1640;"
-            title="Moog DFAM patch: Solid 4/4 Kick &amp; Offbeat Hats"
+            title="Moog DFAM patch: Solid 4/4 Kick &amp; Offbeat Hats (Remix)"
             loading="lazy"
           ></iframe>
         </div>
@@ -414,24 +414,34 @@
             <pre class="flex-1 min-h-0 max-h-80 lg:max-h-none overflow-auto w-full font-mono text-xs sm:text-sm text-foreground bg-muted/30 p-3 sm:p-4 whitespace-pre-wrap break-words">{
   "format": "patchmd/1",
   "patch": {
-    "name": "Solid 4/4 Kick &amp; Offbeat Hats",
+    "name": "Solid 4/4 Kick &amp; Offbeat Hats (Remix)",
     "created_with": "Synth Patch",
-    "created_at": "2025-09-19T20:51:20.219Z",
-    "updated_at": "2025-09-19T20:51:20.219Z",
-    "created_by": "mylarmelodies",
+    "created_at": "2026-10-16T15:38:29.311Z",
+    "updated_at": "2026-10-16T15:38:29.311Z",
+    "created_by": "synthpatch",
+    "remixed_from": "mylarmelodies",
     "notes": "- Switch VCF to HP to perform drops.\n- Raise Velocity Steps 4 &amp; 8 for 'Roller' vibe.\n- Raise cutoff for more noise.\n- Set VCO2 to Square wave for aggro kick.\n\nAs used in this video and mentioned at the end: https://www.youtube.com/watch?v=GnyxBTeg5xA",
     "is_public": true
   },
   "synthesizer": "moog-dfam-53d6fb",
   "controls": {
     "knobs": {
-      "Tempo": 0.9006,
-      "Cutoff": 0.5132,
-      "Volume": 0.7302,
-      "Resonance": 0,
-      "VCA Decay": 0.4222,
-      "VCF Decay": 0.717,
+      "VCO 1 Level": 1,
       "VCO Decay": 0.2003,
+      "VCO 1 EG Amount": 0.7904,
+      "VCO 1 Frequency": 0.3796,
+      "Cutoff": 0.5132,
+      "Resonance": 0,
+      "Volume": 0.7302,
+      "Noise / EXT Level": 0.2698,
+      "1-2 FM Amount": 0,
+      "VCO 2 EG Amount": 0.5986,
+      "VCO 2 Frequency": 0.352,
+      "VCF Decay": 0.717,
+      "VCF EG Amount": 0.5536,
+      "Noise / VCF Mod": 0.3154,
+      "VCA Decay": 0.4222,
+      "VCO 2 Level": 0,
       "Seq 1 Pitch": 0,
       "Seq 2 Pitch": 0,
       "Seq 3 Pitch": 0.6165,
@@ -440,10 +450,7 @@
       "Seq 6 Pitch": 0,
       "Seq 7 Pitch": 0.6774,
       "Seq 8 Pitch": 0,
-      "VCO 1 Level": 1,
-      "VCO 2 Level": 0,
-      "1-2 FM Amount": 0,
-      "VCF EG Amount": 0.5536,
+      "Tempo": 0.9006,
       "Seq 1 Velocity": 1,
       "Seq 2 Velocity": 0.0811,
       "Seq 3 Velocity": 0.3208,
@@ -451,21 +458,15 @@
       "Seq 5 Velocity": 1,
       "Seq 6 Velocity": 0,
       "Seq 7 Velocity": 0.2519,
-      "Seq 8 Velocity": 0,
-      "Noise / VCF Mod": 0.3154,
-      "VCO 1 EG Amount": 0.7904,
-      "VCO 1 Frequency": 0.3796,
-      "VCO 2 EG Amount": 0.5986,
-      "VCO 2 Frequency": 0.352,
-      "Noise / EXT Level": 0.2698
+      "Seq 8 Velocity": 0
     },
     "toggles": {
+      "Seq Pitch Mod": "Off",
+      "VCO 1 Wave": "Triangle",
       "VCF": "Low Pass",
       "VCA EG": "Fast",
       "Hard Sync": "On",
-      "VCO 1 Wave": "Triangle",
-      "VCO 2 Wave": "Triangle",
-      "Seq Pitch Mod": "Off"
+      "VCO 2 Wave": "Triangle"
     },
     "leds": {
       "Seq 1": false,
@@ -479,9 +480,9 @@
       "Run / Stop": false
     },
     "buttons": {
-      "Advance": false,
       "Trigger": false,
-      "Run / Stop": false
+      "Run / Stop": false,
+      "Advance": false
     }
   },
   "cables": [
