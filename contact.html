@@ -284,6 +284,22 @@
     </div>
   </main>
 
+  <script>
+    // Pre-fill the form from a ?topic= link, e.g. /contact?topic=desktop-app
+    (function () {
+      var topics = {
+        'desktop-app': {
+          message: 'I am interested in the desktop app',
+          subject: 'Desktop app interest from synthpatch.io'
+        }
+      };
+      var topic = topics[new URLSearchParams(window.location.search).get('topic')];
+      if (!topic) return;
+      document.getElementById('message').value = topic.message;
+      document.querySelector('input[name="_subject"]').value = topic.subject;
+    })();
+  </script>
+
   <!-- Footer -->
   <footer class="bg-black text-white py-8 dark:bg-background dark:border-t-2 dark:border-border">
     <div class="max-w-7xl mx-auto px-4 md:px-6 text-center text-xs md:text-sm text-gray-400">
