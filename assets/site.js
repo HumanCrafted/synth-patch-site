@@ -123,11 +123,30 @@
   })();
 
   // ------------------------------------------------------------ Synth embeds
-  // Hide the thumbnail shown behind an embed once the embed has loaded
+  // Keep the thumbnail over an embed until the synth has drawn. The iframe's load
+  // event fires while the embed is still fetching the patch, so the embed posts
+  // 'synthpatch:embed-ready' to its parent once the panel is on screen. If that
+  // never comes (an older app build), fall back to a delay after load.
 
   document.querySelectorAll('[data-synth-placeholder]').forEach(function (placeholder) {
     var frame = placeholder.parentElement.querySelector('iframe');
-    if (frame) frame.addEventListener('load', function () { placeholder.remove(); });
+    if (!frame) return;
+
+    var done = false;
+    function reveal() {
+      if (done) return;
+      done = true;
+      window.removeEventListener('message', onMessage);
+      placeholder.style.opacity = '0';
+      setTimeout(function () { placeholder.remove(); }, 300);
+    }
+    function onMessage(event) {
+      if (event.source === frame.contentWindow && event.data && event.data.type === 'synthpatch:embed-ready') reveal();
+    }
+
+    window.addEventListener('message', onMessage);
+    frame.addEventListener('load', function () { setTimeout(reveal, 4000); });
+    setTimeout(reveal, 10000);
   });
 
   applyTheme();

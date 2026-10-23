@@ -235,12 +235,17 @@
       <div class="max-w-6xl mx-auto">
         <div class="rounded-lg p-3 sm:p-6 border border-muted-foreground/25">
           <div class="relative">
-            <!-- Thumbnail until the embed has loaded -->
+            <!-- Thumbnail until the embed says the synth has drawn (assets/site.js).
+                 Bottom-aligned because the embed keeps a strip above the panel for
+                 cables that leave its top edge. -->
             <img
               data-synth-placeholder
-              src="https://ynttpfo19izvbk4z.public.blob.vercel-storage.com/synths/temp-1758302694994/assets/thumbnail/1758302700264_dfam-thumbnail-3620w.png"
+              src="/synths/dfam-hero-2200w.png"
+              width="2200"
+              height="933"
+              fetchpriority="high"
               alt="Moog DFAM panel"
-              class="absolute inset-0 w-full h-full object-contain"
+              class="absolute inset-0 z-10 w-full h-full object-contain object-bottom transition-opacity duration-300"
             />
             <iframe
               src="https://app.synthpatch.io/embed/9e6024f3-7f90-4332-8a9c-181ba65e9a71"
